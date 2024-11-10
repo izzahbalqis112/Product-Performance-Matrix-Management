@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "328204242966",
+    "project_id": "pdpppms",
+    "storage_bucket": "pdpppms.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:328204242966:android:dc558ba00b146ef4372537",
+        "android_client_info": {
+          "package_name": "com.tf.pdpppms.tf_pdpppms"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwpP3saKG-eI0jUwX15IpshmQsf4tCcxU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
