@@ -49,9 +49,8 @@ class _MainSCPageState extends State<MainSCPage> with TickerProviderStateMixin {
           .collection('projects')
           .doc(projectId)
           .delete();
-      _loadProjects(); // Refresh the projects list
+      _loadProjects();
     } catch (e) {
-      // Handle error
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error deleting project: $e')),
       );
@@ -136,15 +135,15 @@ class _MainSCPageState extends State<MainSCPage> with TickerProviderStateMixin {
               ),
               Spacer(),
               Container(
-                padding: EdgeInsets.all(0.2),  // Reduced padding
+                padding: EdgeInsets.all(0.2),  
                 decoration: BoxDecoration(
                   color: AppColor.color3,
-                  borderRadius: BorderRadius.circular(20.0),  // Reduced border radius
+                  borderRadius: BorderRadius.circular(20.0),  
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.2),
-                      blurRadius: 2.0,  // Reduced blur radius
-                      offset: Offset(0, 3),  // Reduced shadow offset
+                      blurRadius: 2.0,  
+                      offset: Offset(0, 3),  
                     ),
                   ],
                 ),
@@ -158,17 +157,17 @@ class _MainSCPageState extends State<MainSCPage> with TickerProviderStateMixin {
                       },
                     );
                     if (result == true) {
-                      _loadProjects(); // Refresh the projects list
+                      _loadProjects(); 
                     }
                   },
                   style: TextButton.styleFrom(
-                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),  // Reduced padding inside the button
+                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),  
                     backgroundColor: Colors.transparent,
                   ),
                   child: Text(
                     'Add Project',
                     style: TextStyle(
-                      fontSize: 12,  // Reduced font size
+                      fontSize: 12,  
                       color: AppColor.white,
                     ),
                   ),
@@ -267,14 +266,12 @@ class _MainSCPageState extends State<MainSCPage> with TickerProviderStateMixin {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: snapshot.data!.map((project) {
                       final data = project.data() as Map<String, dynamic>?;
-
-                      // Handle cases where data might be null
                       final projectName = data != null && data.containsKey('projectName')
                           ? data['projectName']
                           : 'No Name';
                       final projectDescription = data != null && data.containsKey('projectDescription')
                           ? data['projectDescription']
-                          : null; // Change to null if description is not present
+                          : null; 
                       final startDate = data != null && data.containsKey('startDate') && data['startDate'] is Timestamp
                           ? formatDate((data['startDate'] as Timestamp).toDate().toLocal())
                           : 'No Start Date';
@@ -430,14 +427,14 @@ class _MainSCPageState extends State<MainSCPage> with TickerProviderStateMixin {
                                   child: Row(
                                     children: [
                                       Icon(
-                                        item['icon'] as IconData, // Cast to IconData
+                                        item['icon'] as IconData,
                                         color: AppColor.deepGreen1,
                                         size: 20.0,
                                       ),
                                       SizedBox(width: 8.0),
                                       Expanded(
                                         child: Text(
-                                          item['text'] as String, // Cast to String
+                                          item['text'] as String, 
                                           style: TextStyle(
                                             color: Colors.black87,
                                             fontSize: 16.0,
