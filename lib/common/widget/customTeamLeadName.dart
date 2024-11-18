@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tf_pdpppms/common/appColors.dart';
-import 'package:tf_pdpppms/common/appFonts.dart'; // Ensure this import is correct
+import 'package:tf_pdpppms/common/appFonts.dart';
 
 class CustomTeamLeadNameField extends StatefulWidget {
   final TextEditingController controller;
@@ -52,7 +52,7 @@ class _CustomTeamLeadNameFieldState extends State<CustomTeamLeadNameField> {
             contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
             hintText: 'Enter your leader name',
             prefixIcon: Icon(
-              Icons.person, // or any other icon you prefer
+              Icons.person, 
               color: _isFocused ? AppColor.deepGreen : Colors.grey,
             ),
             errorText: widget.isValid ? null : 'Invalid input',
@@ -71,11 +71,11 @@ class _CustomTeamLeadNameFieldState extends State<CustomTeamLeadNameField> {
             filled: true,
             fillColor: Colors.grey[100],
           ),
-          style: AppFonts.text16(AppColor.black), // Use the custom font style
+          style: AppFonts.text16(AppColor.black),
           onChanged: widget.onChanged,
           validator: widget.validator,
           inputFormatters: [
-            LengthLimitingTextInputFormatter(255), // Limit input to 255 characters
+            LengthLimitingTextInputFormatter(255), 
           ],
         ),
         if (!widget.isValid)
