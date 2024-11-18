@@ -93,7 +93,6 @@ class _EditSelectedProductIDPageState extends State<EditSelectedProductIDPage> {
     DateTime launchDate = _launchDate ?? DateTime.now();
 
     try {
-      // Remove the 'RM' suffix and parse the value to a double
       String costText = _costController.text.replaceAll('RM', '').trim();
       double cost = double.tryParse(costText) ?? 0.0;
 
@@ -121,7 +120,6 @@ class _EditSelectedProductIDPageState extends State<EditSelectedProductIDPage> {
         'projectId': productModel.projectId,
       };
 
-      // Save to Firestore within the selected project ID collection
       await FirebaseFirestore.instance
           .collection('projects')
           .doc(widget.projectId)
@@ -191,7 +189,6 @@ class _EditSelectedProductIDPageState extends State<EditSelectedProductIDPage> {
                         style: AppFonts.text16Bold(AppColor.bgGreen),
                       ),
                       SizedBox(height: 10),
-                      // productName
                       CustomTextFieldNew(
                         controller: _productNameController,
                         hintText: "Enter your product name",
@@ -285,7 +282,7 @@ class _EditSelectedProductIDPageState extends State<EditSelectedProductIDPage> {
                         controller: _costController,
                         hintText: "Enter your product cost",
                         prefixIcon: Icons.attach_money,
-                        suffixText: "RM", // Added RM suffix
+                        suffixText: "RM", 
                         isValid: true,
                         keyboardType: TextInputType.numberWithOptions(decimal: true),
                         inputFormatters:  [FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*'))],
@@ -317,7 +314,7 @@ class _EditSelectedProductIDPageState extends State<EditSelectedProductIDPage> {
                           setState(() {});
                         },
                         validator: (value) {
-                          return null; // No validation needed for optional field
+                          return null; 
                         },
                       ),
 
