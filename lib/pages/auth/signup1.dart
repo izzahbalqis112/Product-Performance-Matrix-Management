@@ -37,12 +37,10 @@ class _Signup1State extends State<Signup1> with TickerProviderStateMixin {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   bool _validateFirstName(String value) {
-    // Check if the value is not empty and is in lowercase
     return value.isNotEmpty && value == value.toLowerCase();
   }
 
   bool _validateEmail(String email) {
-    // Regular expressions for the accepted email formats
     final RegExp googleEmail =
     RegExp(r'^[\w.+-]+@gmail\.com$', caseSensitive: false);
     final RegExp utemEmail =
@@ -51,15 +49,13 @@ class _Signup1State extends State<Signup1> with TickerProviderStateMixin {
     RegExp(r'^[\w.+-]+@outlook\.com$', caseSensitive: false);
     final RegExp yahooEmail =
     RegExp(r'^[\w.+-]+@yahoo\.com$', caseSensitive: false);
-
-    // Check if the email matches any of the accepted formats
     if (googleEmail.hasMatch(email) ||
         utemEmail.hasMatch(email) ||
         outlookEmail.hasMatch(email) ||
         yahooEmail.hasMatch(email)) {
-      return true; // Email is valid
+      return true; 
     } else {
-      return false; // Email is invalid
+      return false;
     }
   }
 
@@ -70,14 +66,10 @@ class _Signup1State extends State<Signup1> with TickerProviderStateMixin {
   }
 
   bool _validatePassword(String password) {
-    // Check if password length is at least 6 characters
     if (password.length < 6) {
       return false;
     }
-
-    // Check for at least one uppercase letter
     bool hasUpperCase = false;
-    // Count the number of uppercase letters
     int upperCaseCount = 0;
     for (int i = 0; i < password.length; i++) {
       if (password[i] == password[i].toUpperCase() && password[i] != password[i].toLowerCase()) {
@@ -85,10 +77,7 @@ class _Signup1State extends State<Signup1> with TickerProviderStateMixin {
         upperCaseCount++;
       }
     }
-
-    // Check for at least one lowercase letter
     bool hasLowerCase = false;
-    // Count the number of lowercase letters
     int lowerCaseCount = 0;
     for (int i = 0; i < password.length; i++) {
       if (password[i] == password[i].toLowerCase() && password[i] != password[i].toUpperCase()) {
@@ -96,8 +85,6 @@ class _Signup1State extends State<Signup1> with TickerProviderStateMixin {
         lowerCaseCount++;
       }
     }
-
-    // Check for at least one special character
     bool hasSpecialChar = false;
     String specialChars = r'^ !@#$%^&*()_+{}|:<>?-=[]\;\';
     for (int i = 0; i < password.length; i++) {
@@ -106,32 +93,29 @@ class _Signup1State extends State<Signup1> with TickerProviderStateMixin {
         break;
       }
     }
-
-    // Return true only if all conditions are met
-    // And if the desired count of uppercase and lowercase letters is achieved
     return hasUpperCase && hasLowerCase && hasSpecialChar && upperCaseCount >= 1 && lowerCaseCount >= 1;
   }
 
   String hashPassword(String password) {
-    var bytes = utf8.encode(password); // Encode the password to UTF-8
-    var digest = sha256.convert(bytes); // Generate the SHA-256 hash
-    return digest.toString(); // Return the hashed password as a string
+    var bytes = utf8.encode(password);
+    var digest = sha256.convert(bytes); 
+    return digest.toString(); 
   }
 
   void _showDialog(String message) {
     showDialog(
       context: context,
-      barrierDismissible: true, // Allows dismiss by tapping outside
+      barrierDismissible: true,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: Colors.white, // Set background color
+          backgroundColor: Colors.white, 
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12.0), // Rounded corners
+            borderRadius: BorderRadius.circular(12.0),
           ),
           title: Row(
             children: [
               Icon(
-                Icons.info_outline, // Icon for the dialog
+                Icons.info_outline, 
                 color: AppColor.red,
                 size: 28.0,
               ),
@@ -152,7 +136,7 @@ class _Signup1State extends State<Signup1> with TickerProviderStateMixin {
           actions: <Widget>[
             TextButton(
               style: TextButton.styleFrom(
-                backgroundColor: AppColor.deepGreen, // Color for the button
+                backgroundColor: AppColor.deepGreen,
                 textStyle: TextStyle(
                   fontSize: 16.0,
                   fontWeight: FontWeight.w600,
@@ -170,31 +154,27 @@ class _Signup1State extends State<Signup1> with TickerProviderStateMixin {
   }
 
   void _onSignupPressed() async {
-    // Validate input fields
     setState(() {
       _isFirstNameValid = _firstNameController.text.isNotEmpty;
       _isPhoneNumberValid = _phoneNumber != null && _phoneNumber!.isNotEmpty;
     });
 
-    // Check if all fields are valid
     if (_isFirstNameValid && _isPhoneNumberValid) {
       try {
         String userID = Uuid().v4();
         String email = _emailController.text.trim();
         String password = _passwordController.text.trim();
 
-        // Create UserModel object
         UserModel userModel = UserModel(
           firstName: _firstNameController.text,
           lastName: _lastNameController.text,
           phoneNumber: _phoneNumber!,
           email: email,
-          password: password, // Temporarily set password here
+          password: password, 
           userID: userID,
           picture: '',
         );
 
-        // Define user profile data
         Map<String, dynamic> userProfileData = {
           'firstName': userModel.firstName,
           'lastName': userModel.lastName,
@@ -202,35 +182,27 @@ class _Signup1State extends State<Signup1> with TickerProviderStateMixin {
           'userID': userModel.userID,
           'picture': userModel.picture,
           'email': userModel.email,
-          'password': hashPassword(userModel.password), // Hash the password for storage
+          'password': hashPassword(userModel.password), 
         };
 
-        // Save user data to Firestore with the user ID as the document ID
         await _firestore.collection('usersAccount').doc(userModel.userID).set(userProfileData);
-
-        // Create user with email and password
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: email,
           password: password,
         );
-
-        // Signup successful, navigate to home screen or wherever you want to navigate
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => ButtomNavBar(initialIndex: 0,)),
         );
       } catch (e) {
-        // Handle any errors that occur during user account creation or Firestore data saving
         print('Error creating user account or saving data to Firestore: $e');
         _showDialog('Error: $e');
       }
     } else {
-      // Display error message or handle invalid input fields
       _showDialog('Please fill in all required fields.');
     }
   }
-
-  //memory control
+  
   @override
   void dispose() {
     _firstNameController.dispose();
@@ -284,7 +256,7 @@ class _Signup1State extends State<Signup1> with TickerProviderStateMixin {
                               width: 60,
                               height: 60,
                             ),
-                            const SizedBox(width: 16), // Add some space to the right of the logo
+                            const SizedBox(width: 16), 
                           ],
                         ),
                       ),
@@ -296,7 +268,7 @@ class _Signup1State extends State<Signup1> with TickerProviderStateMixin {
                             Align(
                               alignment: Alignment.centerLeft,
                               child: Padding(
-                                padding: const EdgeInsets.only(left: 40.0), // Adjust the left padding as needed
+                                padding: const EdgeInsets.only(left: 40.0), 
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -305,10 +277,10 @@ class _Signup1State extends State<Signup1> with TickerProviderStateMixin {
                                       "Fill in your information",
                                       style: AppFonts.text20(AppColor.white),
                                     ),
-                                    const SizedBox(height: 20), // Add space below the text
+                                    const SizedBox(height: 20),
                                     Container(
-                                      padding: EdgeInsets.only(left: 0.05), // Adjust the left padding for center-left alignment
-                                      width: MediaQuery.of(context).size.width - 80, // Adjust width as needed
+                                      padding: EdgeInsets.only(left: 0.05), 
+                                      width: MediaQuery.of(context).size.width - 80,
                                       child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
@@ -389,7 +361,6 @@ class _Signup1State extends State<Signup1> with TickerProviderStateMixin {
                                                     contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal:  15),
                                                   ),
                                                   onChanged: (value) {
-                                                    // No validation needed for last name
                                                   },
                                                   keyboardType: TextInputType.text,
                                                   inputFormatters: [
@@ -399,15 +370,15 @@ class _Signup1State extends State<Signup1> with TickerProviderStateMixin {
                                               ),
                                             ],
                                           ),
-                                          const SizedBox(height: 15), // Add space below the text
+                                          const SizedBox(height: 15),
 
                                           Container(
-                                            padding: EdgeInsets.only(left: 1.0), // Adjust padding as needed
-                                            width: MediaQuery.of(context).size.width - 80, // Adjust width as needed
+                                            padding: EdgeInsets.only(left: 1.0),
+                                            width: MediaQuery.of(context).size.width - 80,
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(32),
                                               border: Border.all(
-                                                color: _isPhoneNumberValid ? AppColor.green : Colors.red, // Change border color based on validation
+                                                color: _isPhoneNumberValid ? AppColor.green : Colors.red, 
                                               ),
                                               color: Colors.white,
                                             ),
@@ -429,12 +400,12 @@ class _Signup1State extends State<Signup1> with TickerProviderStateMixin {
                                                     ),
                                                     ignoreBlank: false,
                                                     selectorTextStyle: TextStyle(color: Colors.black),
-                                                    initialValue: PhoneNumber(isoCode: 'MY'), // Default country code (Malaysia)
+                                                    initialValue: PhoneNumber(isoCode: 'MY'), 
                                                     countries: ['AD', 'AE', 'AF', 'AG', 'AI', 'AL', 'AM', 'AO', 'AQ', 'AR', 'AS', 'AT', 'AU', 'AW', 'AX', 'AZ', 'BA', 'BB', 'BD', 'BE', 'BF', 'BG', 'BH', 'BI', 'BJ', 'BL', 'BM', 'BN', 'BO', 'BQ', 'BR', 'BS', 'BT', 'BV', 'BW', 'BY', 'BZ', 'CA', 'CC', 'CD', 'CF', 'CG', 'CH', 'CI', 'CK', 'CL', 'CM', 'CN', 'CO', 'CR', 'CU', 'CV', 'CW', 'CX', 'CY', 'CZ', 'DE', 'DJ', 'DK', 'DM', 'DO', 'DZ', 'EC', 'EE', 'EG', 'EH', 'ER', 'ES', 'ET', 'FI', 'FJ', 'FK', 'FM', 'FO', 'FR', 'GA', 'GB', 'GD', 'GE', 'GF', 'GG', 'GH', 'GI', 'GL', 'GM', 'GN', 'GP', 'GQ', 'GR', 'GS', 'GT', 'GU', 'GW', 'GY', 'HK', 'HM', 'HN', 'HR', 'HT', 'HU', 'ID', 'IE', 'IL', 'IM', 'IN', 'IO', 'IQ', 'IR', 'IS', 'IT', 'JE', 'JM', 'JO', 'JP', 'KE', 'KG', 'KH', 'KI', 'KM', 'KN', 'KP', 'KR', 'KW', 'KY', 'KZ', 'LA', 'LB', 'LC', 'LI', 'LK', 'LR', 'LS', 'LT', 'LU', 'LV', 'LY', 'MA', 'MC', 'MD', 'ME', 'MF', 'MG', 'MH', 'MK', 'ML', 'MM', 'MN', 'MO', 'MP', 'MQ', 'MR', 'MS', 'MT', 'MU', 'MV', 'MW', 'MX', 'MY', 'MZ', 'NA', 'NC', 'NE', 'NF', 'NG', 'NI', 'NL', 'NO', 'NP', 'NR', 'NU', 'NZ', 'OM', 'PA', 'PE', 'PF', 'PG', 'PH', 'PK', 'PL', 'PM', 'PN', 'PR', 'PS', 'PT', 'PW', 'PY', 'QA', 'RE', 'RO', 'RS', 'RU', 'RW', 'SA', 'SB', 'SC', 'SD', 'SE', 'SG', 'SH', 'SI', 'SJ', 'SK', 'SL', 'SM', 'SN', 'SO', 'SR', 'SS', 'ST', 'SV', 'SX', 'SY', 'SZ', 'TC', 'TD', 'TF', 'TG', 'TH', 'TJ', 'TK', 'TL', 'TM', 'TN', 'TO', 'TR', 'TT', 'TV', 'TW', 'TZ', 'UA', 'UG', 'UM', 'US', 'UY', 'UZ', 'VA', 'VC', 'VE', 'VG', 'VI', 'VN', 'VU', 'WF', 'WS', 'YE', 'YT', 'ZA', 'ZM', 'ZW'], // List of supported countries
-                                                    formatInput: true, // Formats input based on country code
-                                                    keyboardType: TextInputType.phone, // You can adjust the keyboard type as needed
+                                                    formatInput: true,
+                                                    keyboardType: TextInputType.phone, 
                                                     inputDecoration: InputDecoration(
-                                                      border: InputBorder.none, // Remove underline
+                                                      border: InputBorder.none,
                                                       hintText: 'Phone number',
                                                       hintStyle: TextStyle(color: Colors.grey),
                                                       contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal:  15),
@@ -470,7 +441,7 @@ class _Signup1State extends State<Signup1> with TickerProviderStateMixin {
                                                         color: _isEmailValid
                                                             ? AppColor.green
                                                             : Colors
-                                                            .red, // Dynamic border color based on email validity
+                                                            .red, 
                                                       ),
                                                     ),
                                                     focusedBorder: OutlineInputBorder(
@@ -478,7 +449,7 @@ class _Signup1State extends State<Signup1> with TickerProviderStateMixin {
                                                         color: _isEmailValid
                                                             ? AppColor.green
                                                             : Colors
-                                                            .red, // Dynamic border color based on email validity
+                                                            .red, 
                                                       ),
                                                       borderRadius: BorderRadius.circular(12),
                                                     ),
@@ -507,7 +478,7 @@ class _Signup1State extends State<Signup1> with TickerProviderStateMixin {
                                             Padding(
                                               padding: const EdgeInsets.only(
                                                   left: 10.0,
-                                                  top: 5.0), // Adjust padding as needed
+                                                  top: 5.0),
                                               child: Text(
                                                 'Invalid email format',
                                                 style: AppFonts.text14(AppColor.red),
@@ -515,8 +486,6 @@ class _Signup1State extends State<Signup1> with TickerProviderStateMixin {
                                             ),
 
                                           const SizedBox(height: 15),
-
-                                          // Password TextField
                                           Row(
                                             children: [
                                               Expanded(
