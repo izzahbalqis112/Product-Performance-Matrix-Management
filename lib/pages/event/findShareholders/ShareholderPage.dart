@@ -4,7 +4,6 @@ import 'package:tf_pdpppms/pages/event/findShareholders/widget/ShareholderList.d
 import 'package:tf_pdpppms/pages/event/findShareholders/widget/addShareholder.dart';
 import 'package:tf_pdpppms/pages/event/findShareholders/widget/fab.dart';
 import 'package:tf_pdpppms/pages/event/findShareholders/widget/shareholderModel.dart';
-
 import '../event/widget/eventModel.dart';
 
 class ShareholdersPage extends StatefulWidget {
@@ -52,7 +51,6 @@ class _ShareholdersPageState extends State<ShareholdersPage> {
             eventDoc as DocumentSnapshot<Map<String, dynamic>>);
       }
     } catch (e) {
-      // Handle any errors here
       print('Error fetching event: $e');
     }
 
@@ -129,7 +127,7 @@ class _ShareholdersPageState extends State<ShareholdersPage> {
 
                         return ShareholderList(
                           shareholder: shareholder,
-                          event: event, // Pass the event here
+                          event: event, 
                         );
                       },
                     );
