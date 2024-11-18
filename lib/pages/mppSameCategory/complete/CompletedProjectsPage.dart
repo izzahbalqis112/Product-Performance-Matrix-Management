@@ -12,7 +12,7 @@ class CPPage extends StatefulWidget {
 Future<List<DocumentSnapshot>> fetchCompletedProjects() async {
   QuerySnapshot querySnapshot = await FirebaseFirestore.instance
       .collection('projects')
-      .where('projectStatus', isEqualTo: 'Completed') // Filter by completed status
+      .where('projectStatus', isEqualTo: 'Completed')
       .get();
   return querySnapshot.docs;
 }
@@ -71,7 +71,7 @@ class _CPPageState extends State<CPPage> with TickerProviderStateMixin{
           ),
           SizedBox(height: 20),
           FutureBuilder<List<DocumentSnapshot>>(
-            future: fetchCompletedProjects(), // Fetch completed projects
+            future: fetchCompletedProjects(), 
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(child: CircularProgressIndicator());
