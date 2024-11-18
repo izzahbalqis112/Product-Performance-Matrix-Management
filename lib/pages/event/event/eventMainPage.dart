@@ -21,7 +21,6 @@ class _EventMainPageState extends State<EventMainPage> {
     );
     if (result != null) {
       setState(() {
-        // Trigger rebuild or any action you want on return from AddEventDetails
       });
     }
   }
@@ -43,7 +42,7 @@ class _EventMainPageState extends State<EventMainPage> {
                     primaryColor: AppColor.bgGreen1,
                   ),
                   const SizedBox(height: 20),
-                  const EventList(), // Use the EventList widget here
+                  const EventList(), 
                   const SizedBox(height: 80),
                 ],
               ),
