@@ -1,9 +1,8 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart'; // Import Firebase Firestore
+import 'package:cloud_firestore/cloud_firestore.dart'; 
 import 'package:tf_pdpppms/common/appColors.dart';
 import 'package:tf_pdpppms/pages/event/findShareholders/widget/shareholderModel.dart';
-
 import '../../event/customtextfield.dart';
 
 class EditShareholder extends StatefulWidget {
@@ -15,18 +14,14 @@ class EditShareholder extends StatefulWidget {
 
 class _EditShareholderState extends State<EditShareholder> {
   String? selectedShareholder;
-  List<String> shareholderOptions = []; // Initialize as an empty list
+  List<String> shareholderOptions = [];
   List<ShareholderModel> shareholders = [];
-
   String? selectedEventName;
-  List<String> eventOptions = []; // Initialize as an empty list
-
+  List<String> eventOptions = []; 
   final TextEditingController organizationController = TextEditingController();
   final TextEditingController contactController = TextEditingController();
-  final TextEditingController donationAmountController =
-      TextEditingController();
-  final TextEditingController representativeController =
-      TextEditingController();
+  final TextEditingController donationAmountController = TextEditingController();
+  final TextEditingController representativeController = TextEditingController();
 
   @override
   void initState() {
@@ -46,7 +41,7 @@ class _EditShareholderState extends State<EditShareholder> {
         shareholders = fetchedShareholders;
         shareholderOptions = shareholders
             .map((sh) => sh
-                .organization) // Assuming you want to display organization name
+                .organization) 
             .toList();
       });
     } catch (e) {
@@ -60,7 +55,7 @@ class _EditShareholderState extends State<EditShareholder> {
           await FirebaseFirestore.instance.collection('events').get();
       final List<String> fetchedEvents = snapshot.docs
           .map((doc) => doc['eventName']
-              as String) // Adjust based on your Firestore structure
+              as String) 
           .toList();
       setState(() {
         eventOptions = fetchedEvents;
@@ -80,7 +75,7 @@ class _EditShareholderState extends State<EditShareholder> {
         representative: '',
         donation: 0.0,
         timestamp: Timestamp.now(),
-        eventName: '', // Default value
+        eventName: '', 
       ),
     );
 
@@ -88,12 +83,11 @@ class _EditShareholderState extends State<EditShareholder> {
     contactController.text = selectedShareholder.contact;
     donationAmountController.text = selectedShareholder.donation.toString();
     representativeController.text = selectedShareholder.representative;
-    selectedEventName = selectedShareholder.eventName; // Set event name
+    selectedEventName = selectedShareholder.eventName;
   }
 
   void updateShareholder() async {
     if (selectedShareholder == null) {
-      // Handle case where no shareholder is selected
       return;
     }
 
@@ -106,7 +100,7 @@ class _EditShareholderState extends State<EditShareholder> {
         representative: '',
         donation: 0.0,
         timestamp: Timestamp.now(),
-        eventName: '', // Default value
+        eventName: '',
       ),
     );
 
@@ -132,21 +126,21 @@ class _EditShareholderState extends State<EditShareholder> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black, // Set AppBar background color to black
+        backgroundColor: Colors.black, 
         iconTheme: IconThemeData(
-            color: Colors.white), // Set back button color to white
+            color: Colors.white), 
         title: const Text(
           "Edit Shareholder",
           style: TextStyle(
             fontSize: 25,
             fontWeight: FontWeight.w600,
-            color: Colors.white, // Set AppBar text color to white
+            color: Colors.white,
           ),
         ),
         leadingWidth: 75,
       ),
       body: Container(
-        color: AppColor.black, // Set your background color here
+        color: AppColor.black,
         padding: const EdgeInsets.only(right: 27, bottom: 59, left: 27),
         child: CustomScrollView(
           slivers: [
@@ -157,10 +151,10 @@ class _EditShareholderState extends State<EditShareholder> {
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                      color: Colors.white, // Match text fields color
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(8),
                       border:
-                          Border.all(color: Colors.grey), // Match border color
+                          Border.all(color: Colors.grey), 
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black.withOpacity(0.1),
@@ -172,7 +166,7 @@ class _EditShareholderState extends State<EditShareholder> {
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton2<String>(
                         value: selectedShareholder,
-                        hint: Text('Select Shareholder'), // Placeholder text
+                        hint: Text('Select Shareholder'),
                         items: shareholderOptions.map((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
@@ -203,8 +197,8 @@ class _EditShareholderState extends State<EditShareholder> {
                         buttonStyleData: ButtonStyleData(
                           padding: EdgeInsets.symmetric(horizontal: 10),
                           height:
-                              50, // Adjust the height to fit with text fields
-                          width: double.infinity, // Make it full-width
+                              50,
+                          width: double.infinity,
                         ),
                         iconStyleData: IconStyleData(
                           icon: Icon(
@@ -232,7 +226,7 @@ class _EditShareholderState extends State<EditShareholder> {
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton2<String>(
                         value: selectedEventName,
-                        hint: Text('Select Event'), // Placeholder text
+                        hint: Text('Select Event'), 
                         items: eventOptions.map((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
@@ -260,8 +254,8 @@ class _EditShareholderState extends State<EditShareholder> {
                         buttonStyleData: ButtonStyleData(
                           padding: EdgeInsets.symmetric(horizontal: 10),
                           height:
-                              50, // Adjust the height to fit with text fields
-                          width: double.infinity, // Make it full-width
+                              50, 
+                          width: double.infinity,
                         ),
                         iconStyleData: IconStyleData(
                           icon: Icon(
