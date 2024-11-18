@@ -6,7 +6,7 @@ class ShareholderModel {
   final String contact;
   final String representative;
   final double donation;
-  final Timestamp timestamp; // Timestamp from Firestore
+  final Timestamp timestamp; 
   final String? eventName;
 
   ShareholderModel({
@@ -15,11 +15,10 @@ class ShareholderModel {
     required this.contact,
     required this.representative,
     required this.donation,
-    required this.timestamp, // Initialize with Firestore timestamp
+    required this.timestamp, 
     this.eventName,
   });
 
-  // Factory constructor to create an instance from a Firestore document
   factory ShareholderModel.fromDocument(
       DocumentSnapshot<Map<String, dynamic>> doc) {
     var data = doc.data()!;
@@ -29,12 +28,11 @@ class ShareholderModel {
       contact: data['contact'] as String,
       representative: data['representative'] as String,
       donation: (data['donation'] ?? 0.0) as double,
-      timestamp: data['timestamp'] as Timestamp, // Handle as Timestamp
+      timestamp: data['timestamp'] as Timestamp, 
       eventName: data['eventName'] as String?,
     );
   }
 
-  // Factory constructor to create an instance from a JSON map
   factory ShareholderModel.fromJson(Map<String, dynamic> json) {
     return ShareholderModel(
       shareholderId: json['shareholderId'] as String,
@@ -45,12 +43,11 @@ class ShareholderModel {
       timestamp: json['timestamp'] is Timestamp
           ? json['timestamp'] as Timestamp
           : Timestamp.fromDate(DateTime.parse(
-              json['timestamp'] as String)), // Handle as Timestamp
+              json['timestamp'] as String)), 
       eventName: json['eventName'],
     );
   }
 
-  // Convert the instance to a JSON map
   Map<String, dynamic> toJson() {
     return {
       'shareholderId': shareholderId,
@@ -58,12 +55,11 @@ class ShareholderModel {
       'contact': contact,
       'representative': representative,
       'donation': donation,
-      'timestamp': timestamp, // Use Timestamp for Firestore
+      'timestamp': timestamp, 
       'eventName': eventName,
     };
   }
 
-  // Utility method to get DateTime from Firestore Timestamp
   DateTime getTimestampDate() {
     return timestamp.toDate();
   }
