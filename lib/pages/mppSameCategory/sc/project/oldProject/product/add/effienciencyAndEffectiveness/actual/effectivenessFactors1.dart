@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +10,6 @@ import '../../../../../../../../../common/widget/customScalePrecentage.dart';
 import '../../../../../../../../../common/widget/customScaleTextField.dart';
 import '../../../../../../../../../common/widget/customTextFieldNew.dart';
 import 'package:file_picker/file_picker.dart';
-
 import '../../../selectedProjectID.dart';
 
 class EffectivenessFactors1Page extends StatefulWidget {
@@ -26,66 +24,49 @@ class EffectivenessFactors1Page extends StatefulWidget {
 
 class _EffectivenessFactors1PageState extends State<EffectivenessFactors1Page>{
   final _formKey = GlobalKey<FormState>();
-  //unit sales & market share
   final _plannedUnitSalesController = TextEditingController();
   final _plannedMarketSharePercentageController = TextEditingController();
-  //planned customer acceptance rate
   final _plannnedCustomerAcceptanceRateController = TextEditingController();
   final _plannedCustomerSatisfactionController = TextEditingController();
-  //return on sales
   final _plannedNetProfitController = TextEditingController();
   final _plannedSalesRevenueController = TextEditingController();
   final _plannedROSController = TextEditingController();
-  //breakeven & breakeven point
   final plannedFixedCostsController = TextEditingController();
   final plannedSellingPerUnitController = TextEditingController();
   final plannedVariableCostPerUnitController = TextEditingController();
   final _plannedBreakevenPointController = TextEditingController();
   final _plannedBreakevenPointRevenueController = TextEditingController();
-  //profit
   final plannedVariableCostsController = TextEditingController();
   final _plannedProfitController = TextEditingController();
-  //product performance
   final salesVolumeController = TextEditingController();
   final customerSatisfactionController = TextEditingController();
   final productDefectRateController = TextEditingController();
   final _plannedProductPerformanceController = TextEditingController();
   final salesVolumeMaxController = TextEditingController();
-  //customer adoption rate
   final numberOfAdoptersController = TextEditingController();
   final totalMarketSizeController = TextEditingController();
   final customerAdoptionRateController = TextEditingController();
-  //quality metrics
   final qualityTargetController = TextEditingController();
   final totalUnitsController = TextEditingController();
   final qualityMetricsController = TextEditingController();
-  //innovation rate
   final numberOfInnovationsController = TextEditingController();
   final timePeriodController = TextEditingController();
   final innovationRateController = TextEditingController();
   DateTime? selectedDate;
-  //customer retention rate
   final _scaleController = TextEditingController();
-  //copy registered
   final numberOfCopiesController = TextEditingController();
-  //rewards
   final numberOfRewardsController = TextEditingController();
-  //financial performance
   final totalRevenue = TextEditingController();
   final totalCost = TextEditingController();
   final totalGrossProfit = TextEditingController();
   final totalGrossMargin = TextEditingController();
   final totalContributionMargin = TextEditingController();
   final totalROI = TextEditingController();
-  //Market penetration
   final totalMP = TextEditingController();
   final _plannedTotalTAM = TextEditingController();
-  //competitive penetration
   final totalCompetitivePenetration = TextEditingController();
   final _plannedTotalMarketDemand = TextEditingController();
-  //customer feedback score
   final _cfsController = TextEditingController();
-  //post-launch support
   final resolvedTicketsController = TextEditingController();
   final totalTicketsController = TextEditingController();
   final resolutionTimesController = TextEditingController();
@@ -94,7 +75,6 @@ class _EffectivenessFactors1PageState extends State<EffectivenessFactors1Page>{
   final totalARTController = TextEditingController();
   double plse = 0.0;
   double art = 0.0;
-  //market demand alignment'
   final numberOfFeaturesAlignedController = TextEditingController();
   final totalPlannedFeaturesController = TextEditingController();
   final mdaController = TextEditingController();
@@ -207,11 +187,8 @@ class _EffectivenessFactors1PageState extends State<EffectivenessFactors1Page>{
 
   void _saveEffectiveness() async {
     try {
-      // Upload files to Firebase Storage and get URLs
       List<String> fileUrls = await _uploadFiles(_files);
       List<String> fileUrls1 = await _uploadFiles(_files1);
-
-      // Capture data from controllers
       Map<String, dynamic> efficiencyData = {
         'productId': widget.productId,
         'projectId': widget.projectId,
@@ -270,7 +247,6 @@ class _EffectivenessFactors1PageState extends State<EffectivenessFactors1Page>{
         'FileUrls1': fileUrls1,
       };
 
-      // Save to Firestore within the selected project ID collection
       await FirebaseFirestore.instance
           .collection('projects')
           .doc(widget.projectId)
@@ -300,14 +276,12 @@ class _EffectivenessFactors1PageState extends State<EffectivenessFactors1Page>{
         File localFile = File(file.path!);
         String fileName = file.name;
         try {
-          // Upload file to Firebase Storage
           Reference storageRef = FirebaseStorage.instance
               .ref()
               .child('uploads/${widget.projectId}/${widget.productId}/$fileName');
           UploadTask uploadTask = storageRef.putFile(localFile);
           TaskSnapshot snapshot = await uploadTask.whenComplete(() => {});
 
-          // Get the download URL
           String downloadUrl = await snapshot.ref.getDownloadURL();
           fileUrls.add(downloadUrl);
         } catch (e) {
@@ -323,7 +297,7 @@ class _EffectivenessFactors1PageState extends State<EffectivenessFactors1Page>{
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(message),
-        backgroundColor: Colors.green, // You can choose any color you like
+        backgroundColor: Colors.green, 
       ),
     );
   }
@@ -332,7 +306,7 @@ class _EffectivenessFactors1PageState extends State<EffectivenessFactors1Page>{
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(message),
-        backgroundColor: Colors.red, // You can choose any color you like
+        backgroundColor: Colors.red, 
       ),
     );
   }
@@ -442,7 +416,6 @@ class _EffectivenessFactors1PageState extends State<EffectivenessFactors1Page>{
   }
 
   void _updateTotalCost() {
-    // Parse the values as double to handle decimals
     final fixedCost = double.tryParse(plannedFixedCostsController.text) ?? 0.0;
     final variableCostPerUnit = double.tryParse(plannedVariableCostPerUnitController.text) ?? 0.0;
     final unitSales = double.tryParse(_plannedUnitSalesController.text) ?? 0;
@@ -452,7 +425,6 @@ class _EffectivenessFactors1PageState extends State<EffectivenessFactors1Page>{
   }
 
   void _updateTotalRevenue() {
-    // Parse the values as double to handle decimals
     final sellingPricePerUnit = double.tryParse(plannedSellingPerUnitController.text) ?? 0.0; // RM
     final unitSales = double.tryParse(_plannedUnitSalesController.text) ?? 0; // unit
 
@@ -461,7 +433,6 @@ class _EffectivenessFactors1PageState extends State<EffectivenessFactors1Page>{
   }
 
   Future<void> _pickFiles() async {
-    // Pick multiple PDF files
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       allowMultiple: true,
       type: FileType.custom,
@@ -476,7 +447,6 @@ class _EffectivenessFactors1PageState extends State<EffectivenessFactors1Page>{
   }
 
   Future<void> _pickFiles1() async {
-    // Pick multiple PDF files
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       allowMultiple: true,
       type: FileType.custom,
@@ -491,7 +461,6 @@ class _EffectivenessFactors1PageState extends State<EffectivenessFactors1Page>{
   }
 
   String? validateNumberOfCopies(String? value) {
-    // Simple validation for non-empty and numeric input
     if (value == null || value.isEmpty) {
       return 'Please enter a number';
     }
@@ -503,7 +472,7 @@ class _EffectivenessFactors1PageState extends State<EffectivenessFactors1Page>{
   }
 
   void _updateIR() {
-    final numberOfInnovations = double.tryParse(numberOfInnovationsController.text) ?? 0; // in items
+    final numberOfInnovations = double.tryParse(numberOfInnovationsController.text) ?? 0; 
 
     if (selectedDate != null) {
       final currentDate = DateTime.now();
@@ -521,11 +490,11 @@ class _EffectivenessFactors1PageState extends State<EffectivenessFactors1Page>{
   }
 
   void _updateQualityMetrics() {
-    final target = double.tryParse(qualityTargetController.text) ?? 0; // in %
-    final totalUnits = double.tryParse(totalUnitsController.text) ?? 0; // in units
+    final target = double.tryParse(qualityTargetController.text) ?? 0; 
+    final totalUnits = double.tryParse(totalUnitsController.text) ?? 0;
 
     if (totalUnits > 0) {
-      final qualityMetrics = (target / 100) * totalUnits; // converting target % to a fraction
+      final qualityMetrics = (target / 100) * totalUnits;
       qualityMetricsController.text = qualityMetrics.toStringAsFixed(2);
     } else {
       qualityMetricsController.text = '0';
@@ -557,41 +526,32 @@ class _EffectivenessFactors1PageState extends State<EffectivenessFactors1Page>{
   }
 
   void _updatePlannedBreakevenPoint() {
-    // Parse the values as double to handle decimals
     final plannedFixedCosts = double.tryParse(plannedFixedCostsController.text) ?? 0.0;
     final plannedSellingPricePerUnit = double.tryParse(plannedSellingPerUnitController.text) ?? 0.0;
     final plannedVariableCostPerUnit = double.tryParse(plannedVariableCostPerUnitController.text) ?? 0.0;
 
     if (plannedSellingPricePerUnit > plannedVariableCostPerUnit) {
-      // Calculate the breakeven point in units
       final breakevenPoint = plannedFixedCosts / (plannedSellingPricePerUnit - plannedVariableCostPerUnit);
       _plannedBreakevenPointController.text = breakevenPoint.toStringAsFixed(2);
 
-      // Calculate the breakeven point revenue
       final breakevenPointRevenue = breakevenPoint * plannedSellingPricePerUnit;
       _plannedBreakevenPointRevenueController.text = breakevenPointRevenue.toStringAsFixed(2);
     } else {
-      _plannedBreakevenPointController.text = 'N/A'; // Or handle this case as needed
-      _plannedBreakevenPointRevenueController.text = 'N/A'; // Handle this case if needed
+      _plannedBreakevenPointController.text = 'N/A'; 
+      _plannedBreakevenPointRevenueController.text = 'N/A'; 
     }
   }
 
   void _updatePlannedProfit() {
-    // Parse the values as double to handle decimals
     final plannedFixedCosts = double.tryParse(plannedFixedCostsController.text) ?? 0.0;
     final plannedVariableCosts = double.tryParse(plannedVariableCostsController.text) ?? 0.0;
     final plannedSalesRevenue = double.tryParse(_plannedSalesRevenueController.text) ?? 0.0;
-
-    // Ensure that sales revenue is non-negative and fixed/variable costs are non-negative
     if (plannedSalesRevenue < 0 || plannedFixedCosts < 0 || plannedVariableCosts < 0) {
       _plannedProfitController.text = 'Invalid input';
       return;
     }
 
-    // Calculate profit: sales revenue minus total costs (fixed + variable)
     final profit = plannedSalesRevenue - (plannedFixedCosts + plannedVariableCosts);
-
-    // Update the controller text with the calculated profit, formatted to 2 decimal places
     _plannedProfitController.text = profit.toStringAsFixed(2);
   }
 
@@ -601,10 +561,7 @@ class _EffectivenessFactors1PageState extends State<EffectivenessFactors1Page>{
     final custSatisfactionRate = double.tryParse(customerSatisfactionController.text) ?? 0; //in %
     final productDefectRate = double.tryParse(productDefectRateController.text) ?? 0; //in %
     final salesVolumeMax = double.tryParse(salesVolumeMaxController.text) ?? 0; //in units
-
     final normalizedSalesVolume = salesVolume / salesVolumeMax;
-
-    // Calculate product performance
     final productPerformance = normalizedSalesVolume + marketShare + custSatisfactionRate - productDefectRate;
 
     _plannedProductPerformanceController.text = productPerformance.toStringAsFixed(2);
@@ -1645,7 +1602,7 @@ class _EffectivenessFactors1PageState extends State<EffectivenessFactors1Page>{
                             CustomTextFieldNew(
                               controller: numberOfInnovationsController,
                               hintText: 'Number of new features, patents, or innovations expected',
-                              prefixIcon: Icons.add, // Choose an appropriate icon
+                              prefixIcon: Icons.add, 
                               keyboardType: TextInputType.number,
                               suffixText: 'items',
                               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -1686,7 +1643,7 @@ class _EffectivenessFactors1PageState extends State<EffectivenessFactors1Page>{
                                 child: CustomTextFieldNew(
                                   controller: timePeriodController,
                                   hintText: 'Time period for expected innovations',
-                                  prefixIcon: Icons.date_range, // Choose an appropriate icon
+                                  prefixIcon: Icons.date_range,
                                   keyboardType: TextInputType.datetime,
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
@@ -1813,11 +1770,11 @@ class _EffectivenessFactors1PageState extends State<EffectivenessFactors1Page>{
                               prefixIcon: Icons.copy,
                               keyboardType: TextInputType.number,
                               inputFormatters: [
-                                FilteringTextInputFormatter.digitsOnly, // Allow only digits
+                                FilteringTextInputFormatter.digitsOnly, 
                               ],
                               validator: validateNumberOfCopies,
-                              suffixText: 'copies', // Optional: if you want to add suffix text
-                              showIncrementDecrement: true, // Assuming you want increment/decrement buttons
+                              suffixText: 'copies', 
+                              showIncrementDecrement: true, 
                               onIncrement: () {
                                 final currentValue = int.tryParse(numberOfCopiesController.text) ?? 0;
                                 numberOfCopiesController.text = (currentValue + 1).toString();
@@ -1886,7 +1843,7 @@ class _EffectivenessFactors1PageState extends State<EffectivenessFactors1Page>{
                               prefixIcon: Icons.copy,
                               keyboardType: TextInputType.number,
                               inputFormatters: [
-                                FilteringTextInputFormatter.digitsOnly, // Allow only digits
+                                FilteringTextInputFormatter.digitsOnly, 
                               ],
                               validator: validateNumberOfCopies,
                               suffixText: 'rewards',
@@ -2289,12 +2246,10 @@ class _EffectivenessFactors1PageState extends State<EffectivenessFactors1Page>{
                             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                             showIncrementDecrement: true,
                             onIncrement: () {
-                              // Implement increment logic here
                               int currentValue = int.tryParse(_cfsController.text) ?? 0;
                               _cfsController.text = (currentValue + 1).toString();
                             },
                             onDecrement: () {
-                              // Implement decrement logic here
                               int currentValue = int.tryParse(_cfsController.text) ?? 0;
                               if (currentValue > 0) {
                                 _cfsController.text = (currentValue - 1).toString();
@@ -2560,16 +2515,6 @@ class _EffectivenessFactors1PageState extends State<EffectivenessFactors1Page>{
                         _showError = true;
                       });
                     }
-                    /*if (_formKey.currentState!.validate()) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ViewSelectedProjectID(projectId: widget.projectId),
-                        ),
-                      );
-                    }
-
-                     */
                   },
                   child: Text(
                     'Submit',
