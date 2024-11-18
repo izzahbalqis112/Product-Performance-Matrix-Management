@@ -25,7 +25,6 @@ class EditSelectedProjectIDPage extends StatefulWidget {
 
 class _EditSelectedProjectIDPageState extends State<EditSelectedProjectIDPage> {
   final _formKey = GlobalKey<FormState>();
-
   late TextEditingController _projectNameController;
   late TextEditingController _teamLeadNameController;
   late TextEditingController _projectTypeController;
@@ -61,7 +60,6 @@ class _EditSelectedProjectIDPageState extends State<EditSelectedProjectIDPage> {
     _budgetController = TextEditingController();
     _startDateController.addListener(_updateLeadTime);
     _endDateController.addListener(_updateLeadTime);
-
     _loadProjectData();
   }
 
@@ -96,15 +94,13 @@ class _EditSelectedProjectIDPageState extends State<EditSelectedProjectIDPage> {
           final leadTime = end.difference(start).inDays;
           _leadTimeController.text = leadTime.toString();
         } else {
-          _leadTimeController.text = '0'; // Or any other default value
+          _leadTimeController.text = '0'; 
         }
-
-        // Update _endDate whenever end date changes
         setState(() {
           _endDate = end;
         });
       } catch (e) {
-        _leadTimeController.text = '0'; // Or any other default value
+        _leadTimeController.text = '0';
       }
     }
   }
@@ -122,14 +118,11 @@ class _EditSelectedProjectIDPageState extends State<EditSelectedProjectIDPage> {
           _categoryController.text = data['category'] ?? '';
           _descriptionController.text = data['description'] ?? '';
           _statusController.text = data['projectStatus'] ?? '';
-
           _startDate = (data['startDate'] as Timestamp).toDate();
           _endDate = (data['endDate'] as Timestamp).toDate();
-
           _startDateController.text = DateFormat('dd-MM-yyyy').format(_startDate!);
           _endDateController.text = DateFormat('dd-MM-yyyy').format(_endDate!);
-
-          _updateLeadTime(); // Update lead time based on the loaded dates
+          _updateLeadTime(); 
         });
       }
     } catch (e) {
@@ -139,17 +132,13 @@ class _EditSelectedProjectIDPageState extends State<EditSelectedProjectIDPage> {
 
   void _updateSaveProject() async {
     if (!_formKey.currentState!.validate()) return;
-
-    // Ensure startDate and endDate are non-null before passing to ProjectModel
     DateTime startDate = _startDate ?? DateTime.now();
     DateTime endDate = _endDate ?? DateTime.now();
-
-    // Ensure leadTime is non-null before passing to ProjectModel
     int leadTime = int.tryParse(_leadTimeController.text) ?? 0;
 
     try {
       ProjectModel projectModel = ProjectModel(
-        projectId: widget.projectId, // Use the passed projectId
+        projectId: widget.projectId, 
         projectName: _projectNameController.text,
         description: _descriptionController.text,
         startDate: startDate,
@@ -334,7 +323,7 @@ class _EditSelectedProjectIDPageState extends State<EditSelectedProjectIDPage> {
                               controller: _projectTypeController,
                               hintText: 'Select your project type',
                               prefixIcon: Icons.category,
-                              showError: _showError, // Pass the error state
+                              showError: _showError, 
                               validator: (value) {
                                 if (value == null) {
                                   return 'Please select a project type';
@@ -358,7 +347,7 @@ class _EditSelectedProjectIDPageState extends State<EditSelectedProjectIDPage> {
                               onChanged: (value) {
                                 setState(() {
                                   _startDate = DateFormat('dd-MM-yyyy').parse(value);
-                                  _updateLeadTime(); // Ensure lead time is updated when start date changes
+                                  _updateLeadTime();
                                 });
                               },
                               validator: (value) {
@@ -381,11 +370,11 @@ class _EditSelectedProjectIDPageState extends State<EditSelectedProjectIDPage> {
                               hintText: "Select your end date for the project",
                               prefixIcon: Icons.calendar_today,
                               isValid: true,
-                              minDate: _startDate, // Set minimum date for end date picker
+                              minDate: _startDate,
                               onChanged: (value) {
                                 setState(() {
                                   _endDate = DateFormat('dd-MM-yyyy').parse(value);
-                                  _updateLeadTime(); // Ensure lead time is updated when end date changes
+                                  _updateLeadTime(); 
                                 });
                               },
                               validator: (value) {
@@ -451,7 +440,7 @@ class _EditSelectedProjectIDPageState extends State<EditSelectedProjectIDPage> {
                               controller: _categoryController,
                               hintText: 'Select your project category',
                               prefixIcon: Icons.category,
-                              showError: _showError, // Pass the error state
+                              showError: _showError, 
                               categories: _categories,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
@@ -474,12 +463,12 @@ class _EditSelectedProjectIDPageState extends State<EditSelectedProjectIDPage> {
                               prefixIcon: Icons.description,
                               isValid: true,
                               minLines: 1,
-                              maxLines: 5, // Allows the TextField to expand in height as needed
+                              maxLines: 5,
                               onChanged: (value) {
                                 setState(() {});
                               },
                               validator: (value) {
-                                return null; // No validation needed for optional field
+                                return null; 
                               },
                             ),
                           ],
