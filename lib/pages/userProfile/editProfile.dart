@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import '../../common/appColors.dart';
 import '../../common/appFonts.dart';
 import '../../controller/navbar.dart';
@@ -16,7 +15,6 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
-  // Text controllers
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
@@ -269,12 +267,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                       children: [
                                         Padding(
                                           padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                          child: Icon(Icons.phone), // Phone number icon
+                                          child: Icon(Icons.phone), 
                                         ),
                                         Expanded(
                                           child: TextField(
-                                            controller: _phoneNumberController, // Use _phoneNumberController
-                                            keyboardType: TextInputType.phone, // Set keyboard type to phone
+                                            controller: _phoneNumberController, 
+                                            keyboardType: TextInputType.phone, 
                                             decoration: InputDecoration(
                                               hintText: 'Phone number',
                                               hintStyle: TextStyle(color: Colors.grey),
@@ -286,7 +284,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                             ),
                                             onChanged: (value) {
                                               setState(() {
-                                                _phoneNumber = value; // Update _phoneNumber variable
+                                                _phoneNumber = value;
                                               });
                                             },
                                           ),
