@@ -21,7 +21,6 @@ class AddProjectDialog extends StatefulWidget {
 
 class _AddProjectDialogState extends State<AddProjectDialog> {
   final _formKey = GlobalKey<FormState>();
-  //Note: Check inside db if there is project id data, if not continue(project id cant be same)
   final _projectIdController = TextEditingController();
   final _projectNameController = TextEditingController();
   final _descriptionController = TextEditingController();
@@ -35,10 +34,9 @@ class _AddProjectDialogState extends State<AddProjectDialog> {
   bool _isTeamLeadNameValid = true;
   bool _isProjectNameValid = true;
   DateTime? _startDate;
-  DateTime? _endDate; // Track end date
+  DateTime? _endDate; 
   bool _showError = false;
 
-  // Sample categories
   List<String> _categories = ['Teachnology', 'Healthcare', 'Finance', 'Manufacturing', 'Retail', 'Energy'];
 
   bool get _isProjectCompleted {
@@ -72,12 +70,8 @@ class _AddProjectDialogState extends State<AddProjectDialog> {
 
   void _saveProject() async {
     if (!_formKey.currentState!.validate()) return;
-
-    // Ensure startDate and endDate are non-null before passing to ProjectModel
     DateTime startDate = _startDate ?? DateTime.now();
     DateTime endDate = _endDate ?? DateTime.now();
-
-    // Ensure leadTime is non-null before passing to ProjectModel
     int leadTime = int.tryParse(_leadTimeController.text) ?? 0;
 
     try {
@@ -108,7 +102,6 @@ class _AddProjectDialogState extends State<AddProjectDialog> {
       };
 
       await FirebaseFirestore.instance.collection('projects').doc(projectModel.projectId).set(projectData);
-      // Assuming widget has a method onSaveComplete, if not remove this line
       _showSuccessMessage('Project saved successfully!');
       Navigator.pop(context, true);
     } catch (e) {
@@ -145,15 +138,13 @@ class _AddProjectDialogState extends State<AddProjectDialog> {
           final leadTime = end.difference(start).inDays;
           _leadTimeController.text = leadTime.toString();
         } else {
-          _leadTimeController.text = '0'; // Or any other default value
+          _leadTimeController.text = '0'; 
         }
-
-        // Update _endDate whenever end date changes
         setState(() {
           _endDate = end;
         });
       } catch (e) {
-        _leadTimeController.text = '0'; // Or any other default value
+        _leadTimeController.text = '0'; 
       }
     }
   }
@@ -197,7 +188,7 @@ class _AddProjectDialogState extends State<AddProjectDialog> {
                         controller: _projectIdController,
                         hintText: "Enter your project id",
                         prefixIcon: Icons.code,
-                        isValid: true, // Adjust validation as needed
+                        isValid: true,
                         onChanged: (value) {
                           setState(() {
                             _projectIdController.text = value.toUpperCase();
@@ -297,7 +288,7 @@ class _AddProjectDialogState extends State<AddProjectDialog> {
                         controller: _projectTypeController,
                         hintText: 'Select your project type',
                         prefixIcon: Icons.category,
-                        showError: _showError, // Pass the error state
+                        showError: _showError, 
                         validator: (value) {
                           if (value == null) {
                             return 'Please select a project type';
@@ -321,7 +312,7 @@ class _AddProjectDialogState extends State<AddProjectDialog> {
                         onChanged: (value) {
                           setState(() {
                             _startDate = DateFormat('dd-MM-yyyy').parse(value);
-                            _updateLeadTime(); // Ensure lead time is updated when start date changes
+                            _updateLeadTime(); 
                           });
                         },
                         validator: (value) {
@@ -344,11 +335,11 @@ class _AddProjectDialogState extends State<AddProjectDialog> {
                         hintText: "Select your end date for the project",
                         prefixIcon: Icons.calendar_today,
                         isValid: true,
-                        minDate: _startDate, // Set minimum date for end date picker
+                        minDate: _startDate, 
                         onChanged: (value) {
                           setState(() {
                             _endDate = DateFormat('dd-MM-yyyy').parse(value);
-                            _updateLeadTime(); // Ensure lead time is updated when end date changes
+                            _updateLeadTime();
                           });
                         },
                         validator: (value) {
@@ -385,7 +376,6 @@ class _AddProjectDialogState extends State<AddProjectDialog> {
 
                       SizedBox(height: 20),
 
-                      // Conditionally show Project Status field
                       if (!_isProjectCompleted)
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -421,7 +411,7 @@ class _AddProjectDialogState extends State<AddProjectDialog> {
                         controller: _categoryController,
                         hintText: 'Select your project category',
                         prefixIcon: Icons.category,
-                        showError: _showError, // Pass the error state
+                        showError: _showError, 
                         categories: _categories,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -444,12 +434,12 @@ class _AddProjectDialogState extends State<AddProjectDialog> {
                         prefixIcon: Icons.description,
                         isValid: true,
                         minLines: 1,
-                        maxLines: 5, // Allows the TextField to expand in height as needed
+                        maxLines: 5, 
                         onChanged: (value) {
                           setState(() {});
                         },
                         validator: (value) {
-                          return null; // No validation needed for optional field
+                          return null; 
                         },
                       ),
 
@@ -473,7 +463,7 @@ class _AddProjectDialogState extends State<AddProjectDialog> {
                   },
                   child: Text('Cancel', style: AppFonts.text16Bold(AppColor.deepGreen)),
                 ),
-                SizedBox(width: 10), // Add space between buttons
+                SizedBox(width: 10),
                 ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
@@ -487,13 +477,13 @@ class _AddProjectDialogState extends State<AddProjectDialog> {
                   child: Text(
                     'Save Project',
                     style: TextStyle(
-                      fontWeight: FontWeight.bold, // Button text weight
-                      fontSize: 16, // Button text size
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColor.deepGreen,
-                    foregroundColor: Colors.white, // Button text color
+                    foregroundColor: Colors.white, 
                     padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
