@@ -58,7 +58,7 @@ class _EditEventState extends State<EditEvent> {
       try {
         await _firestore
             .collection('events')
-            .doc(widget.eventData['eventId']) // Ensure correct field name
+            .doc(widget.eventData['eventId']) 
             .update({
           'eventName': _eventNameController.text,
           'description': _descriptionController.text,
@@ -88,15 +88,15 @@ class _EditEventState extends State<EditEvent> {
           style: TextStyle(
               fontSize: 25, fontWeight: FontWeight.w600, color: Colors.white),
         ),
-        backgroundColor: Colors.black, // Set the AppBar color to black
+        backgroundColor: Colors.black, 
         leading: IconButton(
           icon:
-              Icon(Icons.arrow_back, color: Colors.white), // White back button
+              Icon(Icons.arrow_back, color: Colors.white), 
           onPressed: () => Navigator.pop(context),
         ),
       ),
       backgroundColor:
-          Colors.black, // Set the Scaffold background color to black
+          Colors.black, 
       body: CustomScrollView(
         slivers: [
           SliverFillRemaining(
@@ -114,7 +114,6 @@ class _EditEventState extends State<EditEvent> {
                       hintText: "Event Name",
                       prefixIcon: Icons.event,
                       onChanged: (value) => _eventNameController.text = value,
-                      // Update text field styling if needed for better visibility
                     ),
                     const SizedBox(height: 20),
                     CustomTextFieldNew(
@@ -124,7 +123,6 @@ class _EditEventState extends State<EditEvent> {
                       minLines: 3,
                       maxLines: 5,
                       onChanged: (value) => _descriptionController.text = value,
-                      // Update text field styling if needed for better visibility
                     ),
                     const SizedBox(height: 20),
                     CustomTextFieldNew(
@@ -132,15 +130,13 @@ class _EditEventState extends State<EditEvent> {
                       hintText: "Organizer",
                       prefixIcon: Icons.person,
                       onChanged: (value) => _organizerController.text = value,
-                      // Update text field styling if needed for better visibility
                     ),
                     const SizedBox(height: 20),
-                    // Event Date Box
                     Container(
                       padding: EdgeInsets.symmetric(
                           horizontal: 12.0, vertical: 12.0),
                       decoration: BoxDecoration(
-                        color: Colors.white, // Set background color to white
+                        color: Colors.white, 
                         borderRadius: BorderRadius.circular(12.0),
                         boxShadow: [
                           BoxShadow(
@@ -159,12 +155,12 @@ class _EditEventState extends State<EditEvent> {
                               style: TextStyle(
                                   fontSize: 16.0,
                                   color: Colors
-                                      .black), // Set text color to black for visibility
+                                      .black), 
                             ),
                           ),
                           IconButton(
                             icon: Icon(Icons.calendar_today,
-                                color: Colors.black), // Set icon color to black
+                                color: Colors.black),
                             onPressed: _selectDate,
                           ),
                         ],
