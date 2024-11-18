@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:tf_pdpppms/common/appColors.dart';
-
 import '../eventPage.dart';
 import 'eventModel.dart';
 
