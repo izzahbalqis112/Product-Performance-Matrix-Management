@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
-
 import '../../../common/appColors.dart';
 import '../../../controller/navbar.dart';
 import '../mainPage.dart';
@@ -29,13 +28,12 @@ class _CompletionDialogState extends State<CompletionDialog> {
       builder: (BuildContext context, Widget? child) {
         return Theme(
           data: ThemeData.light().copyWith(
-            primaryColor: AppColor.deepGreen1, // Color for the calendar header
-            focusColor: AppColor.deepGreen1, // Color for the selected date
+            primaryColor: AppColor.deepGreen1,
+            focusColor: AppColor.deepGreen1, 
             buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
             textButtonTheme: TextButtonThemeData(
-              style: TextButton.styleFrom(), // Color for the date buttons
+              style: TextButton.styleFrom(), 
             ),
-            // Optional: Change other elements to match the green theme
             dialogBackgroundColor: Colors.white,
             colorScheme: ColorScheme.light(primary: AppColor.deepGreen1),
           ),
@@ -47,7 +45,7 @@ class _CompletionDialogState extends State<CompletionDialog> {
     if (selectedDate != null && selectedDate != DateTime.now()) {
       setState(() {
         controller.text = DateFormat('dd-MM-yyyy').format(selectedDate);
-        _calculateLeadTime(); // Recalculate lead time when date is selected
+        _calculateLeadTime(); 
       });
     }
   }
@@ -86,7 +84,7 @@ class _CompletionDialogState extends State<CompletionDialog> {
         ),
       );
     } catch (e) {
-      Navigator.of(context).pop(false); // Return false to indicate failure
+      Navigator.of(context).pop(false);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error updating project: $e')),
       );
@@ -124,14 +122,14 @@ class _CompletionDialogState extends State<CompletionDialog> {
             controller: _actualLeadTimeController,
             decoration: InputDecoration(labelText: 'Actual Lead Time (days)'),
             keyboardType: TextInputType.number,
-            readOnly: true, // Make it read-only as it is calculated
+            readOnly: true,
           ),
         ],
       ),
       actions: [
         TextButton(
           onPressed: () {
-            Navigator.of(context).pop(); // Cancel
+            Navigator.of(context).pop(); 
           },
           child: Text('Cancel'),
         ),
