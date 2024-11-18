@@ -1,7 +1,6 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:tf_pdpppms/common/appColors.dart';
-//import 'package:tf_pdpppms/pages/mppCurrentProject/mainCP.dart';
 import 'package:tf_pdpppms/pages/userProfile/profile.dart';
 import '../pages/event/mainPage.dart';
 import '../pages/mppSameCategory/mainPage.dart';
@@ -25,7 +24,6 @@ class _ButtomNavBarState extends State<ButtomNavBar> {
   }
 
   final screens = [
-    //MainCPPage(),
     ProfilePage(),
     MainPage(),
     ButtonPage(initialTabIndex: 0),
@@ -34,16 +32,6 @@ class _ButtomNavBarState extends State<ButtomNavBar> {
   @override
   Widget build(BuildContext context) {
     final items = <Widget>[
-      /*AnimatedContainer(
-        duration: Duration(milliseconds: 300),
-        padding: EdgeInsets.all(index == 0 ? 8.0 : 0),
-        child: Icon(
-          Icons.file_present,
-          size: 26,
-          color: index == 0 ? AppColor.deepGreen : AppColor.black.withOpacity(0.4),
-        ),
-      ),
-       */
       AnimatedContainer(
         duration: Duration(milliseconds: 300),
         padding: EdgeInsets.all(index == 0 ? 8.0 : 0),
