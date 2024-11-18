@@ -114,7 +114,6 @@ class _ViewSelectedProjectIDState extends State<ViewSelectedProjectID> {
               .map((doc) {
             final data = doc.data() as Map<String, dynamic>;
 
-            // Convert Timestamp to DateTime if needed
             if (data['launchDate'] is Timestamp) {
               data['launchDate'] = (data['launchDate'] as Timestamp).toDate();
             }
@@ -143,7 +142,6 @@ class _ViewSelectedProjectIDState extends State<ViewSelectedProjectID> {
 
   String _formatTimestamp(Timestamp? timestamp) {
     if (timestamp == null) return 'N/A';
-    // Convert Timestamp to DateTime
     DateTime dateTime = timestamp.toDate();
     return DateFormat.yMMMd().format(dateTime);
   }
@@ -268,7 +266,7 @@ class _ViewSelectedProjectIDState extends State<ViewSelectedProjectID> {
             textAlign: TextAlign.center,
           ),
           content: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly, // Adjust spacing between buttons
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             mainAxisSize: MainAxisSize.min,
             children: [
               TextButton(
@@ -330,7 +328,7 @@ class _ViewSelectedProjectIDState extends State<ViewSelectedProjectID> {
                           .doc(productId)
                           .delete();
                       Navigator.pop(context);
-                      _fetchProjectData(); // Refresh data after deletion
+                      _fetchProjectData(); 
                       _showSuccessMessage('Product deleted successfully!');
                     } catch (e) {
                       _showErrorMessage('Error deleting product: $e');
@@ -370,7 +368,6 @@ class _ViewSelectedProjectIDState extends State<ViewSelectedProjectID> {
                 context,
                 MaterialPageRoute(builder: (context) => AddProductDialog(projectId: widget.projectId)),
               ).then((_) {
-                // Refresh the product list after adding a new product
                 _fetchProjectData();
               });
             },
@@ -435,7 +432,6 @@ class _ViewSelectedProjectIDState extends State<ViewSelectedProjectID> {
                   _buildDetailRow(Icons.timer, 'Lead Time', '${projectData?['leadTime'] ?? 'N/A'} '),
                   _buildDetailRow(Icons.info, 'Status', projectData?['projectStatus'] ?? 'N/A'),
                   _buildDetailRow(Icons.label, 'Category', projectData?['category'] ?? 'N/A'),
-                  // Conditional rendering based on project status
                   if (projectData?['projectStatus'] == 'Completed') ...[
                     _buildDetailRow(Icons.date_range, 'Actual Start Date', _formatTimestamp(projectData?['actualDate'])),
                     _buildDetailRow(Icons.date_range, 'Actual End Date', _formatTimestamp(projectData?['actualEndDate'])),
@@ -478,8 +474,6 @@ class _ViewSelectedProjectIDState extends State<ViewSelectedProjectID> {
                   );
                 }
                 var product = products[index];
-
-                // Convert launchDate to string format
                 String launchDateString = product['launchDate'] != null
                     ? DateFormat.yMMMd().format(product['launchDate'] as DateTime)
                     : 'N/A';
@@ -569,13 +563,13 @@ class _ViewSelectedProjectIDState extends State<ViewSelectedProjectID> {
                                 Container(
                                   padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
                                   decoration: BoxDecoration(
-                                    color: AppColor.color5, // Use bgGreen1 for the background color
+                                    color: AppColor.color5, 
                                     borderRadius: BorderRadius.circular(12.0),
                                   ),
                                   child: Text(
                                     product['productStatus'] ?? 'No Status',
                                     style: TextStyle(
-                                      color: Colors.black, // Text color is black
+                                      color: Colors.black, 
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -597,7 +591,7 @@ class _ViewSelectedProjectIDState extends State<ViewSelectedProjectID> {
                   ),
                 );
               },
-              childCount: products.isEmpty ? 1 : products.length, // Show a single item if empty
+              childCount: products.isEmpty ? 1 : products.length, 
             ),
           ),
         ],
