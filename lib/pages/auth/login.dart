@@ -26,20 +26,17 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   bool _validateEmail(String email) {
-    // Regular expressions for the accepted email formats
     final RegExp googleEmail = RegExp(r'^[\w.+-]+@gmail\.com$', caseSensitive: false);
     final RegExp utemEmail = RegExp(r'^[\w.+-]+@(utem\.edu\.my|student\.utem\.edu\.my)$', caseSensitive: false);
     final RegExp outlookEmail = RegExp(r'^[\w.+-]+@outlook\.com$', caseSensitive: false);
     final RegExp yahooEmail = RegExp(r'^[\w.+-]+@yahoo\.com$', caseSensitive: false);
-
-    // Check if the email matches any of the accepted formats
     if (googleEmail.hasMatch(email) ||
         utemEmail.hasMatch(email) ||
         outlookEmail.hasMatch(email) ||
         yahooEmail.hasMatch(email)) {
-      return true; // Email is valid
+      return true; 
     } else {
-      return false; // Email is invalid
+      return false; 
     }
   }
 
@@ -52,17 +49,17 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
   void _showDialog(String message) {
     showDialog(
       context: context,
-      barrierDismissible: true, // Allows dismiss by tapping outside
+      barrierDismissible: true, 
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: Colors.white, // Set background color
+          backgroundColor: Colors.white, 
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12.0), // Rounded corners
+            borderRadius: BorderRadius.circular(12.0),
           ),
           title: Row(
             children: [
               Icon(
-                Icons.info_outline, // Icon for the dialog
+                Icons.info_outline,
                 color: AppColor.red,
                 size: 28.0,
               ),
@@ -83,7 +80,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
           actions: <Widget>[
             TextButton(
               style: TextButton.styleFrom(
-                backgroundColor: AppColor.deepGreen, // Color for the button
+                backgroundColor: AppColor.deepGreen, 
                 textStyle: TextStyle(
                   fontSize: 16.0,
                   fontWeight: FontWeight.w600,
@@ -109,29 +106,22 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
 
       User? user = userCredential.user;
 
-      // Fetch manager's email from Firestore
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection('usersAccount')
           .where('email', isEqualTo: _emailController.text)
           .get();
 
-      // Check if manager email exists in the collection
       if (querySnapshot.docs.isNotEmpty) {
         String userEmail = querySnapshot.docs.first.get('email');
-
-        // Check if the logged-in user's email matches the manager's email
         if (user?.email == _emailController.text && _emailController.text == userEmail) {
-          // Login successful, navigate to home screen
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => ButtomNavBar(initialIndex: 0)),
           );
         } else {
-          // User is not authorized, show error message
           _showDialog('You are not authorized to log in');
         }
       } else {
-        // Manager email not found in the collection
         _showDialog('You are not authorized to log in');
       }
     } catch (e) {
@@ -189,7 +179,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                           width: 60,
                           height: 60,
                         ),
-                        const SizedBox(width: 16), // Add some space to the right of the logo
+                        const SizedBox(width: 16),
                       ],
                     ),
                     const SizedBox(height: 20),
