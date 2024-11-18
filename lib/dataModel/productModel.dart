@@ -9,7 +9,7 @@ class ProductModel {
   final String functionality;
   final String model;
   final String marketDemand;
-  final String projectId; // Foreign key
+  final String projectId; 
 
   ProductModel({
     required this.productId,
