@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tf_pdpppms/common/appColors.dart';
 import '../appFonts.dart';
 
-// Define the enum for project types
 enum ProjectType { oldProject, newProject, ongoingProject }
-
-// Extension to get a string representation of the enum values
 extension ProjectTypeExtension on ProjectType {
   String get name {
     switch (this) {
@@ -19,22 +16,20 @@ extension ProjectTypeExtension on ProjectType {
   }
 }
 
-// Custom Project Type Field
 class CustomProjectTypeField extends StatefulWidget {
   final TextEditingController controller;
   final String hintText;
   final IconData prefixIcon;
-  final bool showError; // Property to control error message visibility
+  final bool showError;
   final void Function(String)? onChanged;
-  final FormFieldValidator<ProjectType>? validator; // Adjusted type to ProjectType?
-
+  final FormFieldValidator<ProjectType>? validator; 
   CustomProjectTypeField({
     required this.controller,
     required this.hintText,
     required this.prefixIcon,
-    required this.showError, // Initialize showError
+    required this.showError, 
     this.onChanged,
-    this.validator, // Adjusted type to ProjectType?
+    this.validator, 
   });
 
   @override
@@ -42,17 +37,16 @@ class CustomProjectTypeField extends StatefulWidget {
 }
 
 class _CustomProjectTypeFieldState extends State<CustomProjectTypeField> {
-  ProjectType _selectedType = ProjectType.oldProject; // Default to a valid value
-  bool _hasInteracted = false; // Flag to track user interaction
-  String? _errorText; // Variable to manage error text
+  ProjectType _selectedType = ProjectType.oldProject; 
+  bool _hasInteracted = false;
+  String? _errorText; 
 
   @override
   void initState() {
     super.initState();
-    // Initialize _selectedType based on controller's initial value
     _selectedType = ProjectType.values.firstWhere(
           (type) => type.name == widget.controller.text,
-      orElse: () => ProjectType.oldProject, // Provide a default value
+      orElse: () => ProjectType.oldProject, 
     );
   }
 
@@ -86,14 +80,12 @@ class _CustomProjectTypeFieldState extends State<CustomProjectTypeField> {
           ),
           onChanged: (ProjectType? newValue) {
             setState(() {
-              _hasInteracted = true; // Set flag to true on user interaction
-              _selectedType = newValue ?? ProjectType.oldProject; // Ensure _selectedType is never null
+              _hasInteracted = true; 
+              _selectedType = newValue ?? ProjectType.oldProject; 
               widget.controller.text = _selectedType.name;
               if (widget.onChanged != null) {
                 widget.onChanged!(_selectedType.name);
               }
-
-              // Perform validation here and set error state if necessary
               final validationResult = widget.validator?.call(_selectedType);
               _errorText = validationResult;
             });
@@ -108,10 +100,9 @@ class _CustomProjectTypeFieldState extends State<CustomProjectTypeField> {
               ),
             );
           }).toList(),
-          dropdownColor: AppColor.white, // Set dropdown background color
+          dropdownColor: AppColor.white,
           style: AppFonts.text12(AppColor.black),
           validator: (value) {
-            // Apply validator here if needed
             if (widget.validator != null) {
               return widget.validator!(_selectedType);
             }
