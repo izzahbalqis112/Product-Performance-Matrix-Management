@@ -2,34 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-/// const CustomCalendar({
-///   Key? key,
-///   this.initialStartDate,
-///   this.initialEndDate,
-///   this.startEndDateChange,
-///   this.minimumDate,
-///   this.maximumDate,
-///   required this.primaryColor,
-/// })
 class CalendarWidget extends StatefulWidget {
-  /// The minimum date that can be selected on the calendar
   final DateTime? minimumDate;
-
-  /// The maximum date that can be selected on the calendar
   final DateTime? maximumDate;
-
-  /// The initial start date to be shown on the calendar
   final DateTime? initialStartDate;
-
-  /// The initial end date to be shown on the calendar
   final DateTime? initialEndDate;
-
-  /// The primary color to be used in the calendar's color scheme
   final Color primaryColor;
-
-  /// A function to be called when the selected date range changes
   final Function(DateTime, DateTime)? startEndDateChange;
-
   const CalendarWidget({
     super.key,
     this.initialStartDate,
@@ -46,13 +25,9 @@ class CalendarWidget extends StatefulWidget {
 
 class CalendarWidgetState extends State<CalendarWidget> {
   List<DateTime> dateList = <DateTime>[];
-
   List<Event> events = [];
-
   DateTime currentMonthDate = DateTime.now();
-
   DateTime? startDate;
-
   DateTime? endDate;
 
   @override
@@ -453,10 +428,7 @@ class CalendarWidgetState extends State<CalendarWidget> {
   }
 
   Future<void> _showEventsForDate(DateTime date) async {
-    // Fetch events from Firestore
     final events = await fetchEvents();
-
-    // Filter events for the selected date
     final eventsForDate = events
         .where((event) =>
             event.date.year == date.year &&
@@ -511,7 +483,6 @@ class CalendarWidgetState extends State<CalendarWidget> {
         );
       }).toList();
     } catch (e) {
-      // Handle error
       print('Error fetching events: $e');
       return [];
     }
