@@ -7,19 +7,19 @@ class CustomCategoryField extends StatefulWidget {
   final TextEditingController controller;
   final String hintText;
   final IconData prefixIcon;
-  final bool showError; // Property to control error message visibility
+  final bool showError; 
   final void Function(String)? onChanged;
   final List<String> categories;
-  final FormFieldValidator<String>? validator; // Add validator parameter
+  final FormFieldValidator<String>? validator; 
 
   CustomCategoryField({
     required this.controller,
     required this.hintText,
     required this.prefixIcon,
-    required this.showError, // Initialize showError
+    required this.showError, 
     this.onChanged,
     required this.categories,
-    this.validator, // Initialize validator
+    this.validator, 
   });
 
   @override
@@ -28,13 +28,12 @@ class CustomCategoryField extends StatefulWidget {
 
 class _CustomCategoryFieldState extends State<CustomCategoryField> {
   String? _selectedCategory;
-  bool _hasInteracted = false; // Flag to track user interaction
-  String? _errorText; // Variable to manage error text
+  bool _hasInteracted = false; 
+  String? _errorText; 
 
   @override
   void initState() {
     super.initState();
-    // Initialize _selectedCategory with controller's text or default to null
     _selectedCategory = widget.controller.text.isNotEmpty
         ? widget.controller.text
         : null;
@@ -69,14 +68,12 @@ class _CustomCategoryFieldState extends State<CustomCategoryField> {
           ),
           onChanged: (String? newValue) {
             setState(() {
-              _hasInteracted = true; // Set flag to true on user interaction
+              _hasInteracted = true; 
               _selectedCategory = newValue;
               widget.controller.text = newValue ?? '';
               if (widget.onChanged != null) {
                 widget.onChanged!(newValue ?? '');
               }
-
-              // Perform validation here and set error state if necessary
               final validationResult = widget.validator?.call(newValue);
               _errorText = validationResult;
             });
@@ -91,17 +88,16 @@ class _CustomCategoryFieldState extends State<CustomCategoryField> {
               ),
             );
           }).toList(),
-          dropdownColor: AppColor.white, // Set dropdown background color
+          dropdownColor: AppColor.white,
           style: AppFonts.text12(AppColor.black),
           validator: (value) {
-            // Apply validator here if needed
             if (widget.validator != null) {
               return widget.validator!(value);
             }
             return null;
           },
         ),
-        SizedBox(height: 10), // Add space between Dropdown and Button
+        SizedBox(height: 10),
         Align(
           alignment: Alignment.centerRight,
           child: ElevatedButton.icon(
@@ -124,7 +120,6 @@ class _CustomCategoryFieldState extends State<CustomCategoryField> {
   Future<void> _showAddCategoryDialog(BuildContext context) async {
     final TextEditingController _newCategoryController = TextEditingController();
     bool _isCategoryValid = true;
-
     await showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -197,7 +192,7 @@ class _CustomCategoryFieldState extends State<CustomCategoryField> {
                     }
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColor.deepGreen1, // Replace with your desired color
+                    backgroundColor: AppColor.deepGreen1,
                   ),
                   child: Text('Add', style: AppFonts.text16Bold(AppColor.white)),
                 ),
