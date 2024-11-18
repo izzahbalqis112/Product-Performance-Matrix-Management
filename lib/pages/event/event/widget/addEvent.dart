@@ -14,7 +14,7 @@ class AddEventDetails extends StatefulWidget {
 }
 
 class _AddEventDetailsState extends State<AddEventDetails> {
-  DateTime? _selectedDate; // Single selected date
+  DateTime? _selectedDate;
   final DateFormat _dateFormat = DateFormat('dd/MM/yyyy');
   final TextEditingController _eventNameController = TextEditingController();
   final TextEditingController _organizerController = TextEditingController();
