@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tf_pdpppms/common/appColors.dart';
 import 'package:tf_pdpppms/pages/event/event/widget/editEvent.dart';
 import 'package:tf_pdpppms/pages/event/event/widget/eventModel.dart';
-
 import '../findShareholders/widget/shareholderModel.dart';
 
 class EventPage extends StatefulWidget {
@@ -31,7 +30,7 @@ class _EventPageState extends State<EventPage> {
           .collection('shareholders')
           .where('organization',
               isEqualTo: widget.event
-                  .organizer) // Assuming organizer maps to the organization field
+                  .organizer)
           .limit(1)
           .get();
 
@@ -47,9 +46,8 @@ class _EventPageState extends State<EventPage> {
   Future<void> _deleteEvent() async {
     try {
       await _firestore.collection('events').doc(widget.event.eventId).delete();
-      Navigator.pop(context); // Go back to previous screen after deletion
+      Navigator.pop(context); 
     } catch (e) {
-      // Handle error (e.g., show an error message)
       print('Error deleting event: $e');
     }
   }
@@ -58,7 +56,7 @@ class _EventPageState extends State<EventPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor:
-          Colors.black, // Set the Scaffold background color to black
+          Colors.black, 
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -96,7 +94,7 @@ class _EventPageState extends State<EventPage> {
                         icon: Icon(Icons.arrow_back),
                         iconSize: 30.0,
                         color: Colors
-                            .white, // Set icon color to white for visibility
+                            .white, 
                         onPressed: () => Navigator.pop(context),
                       ),
                     ],
@@ -142,7 +140,7 @@ class _EventPageState extends State<EventPage> {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color:
-                        Colors.grey[850], // Set a darker grey color for contrast
+                        Colors.grey[850],
                     borderRadius: BorderRadius.circular(20.0),
                     boxShadow: [
                       BoxShadow(
@@ -163,16 +161,16 @@ class _EventPageState extends State<EventPage> {
                           style: TextStyle(
                             fontSize: 16.0,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white, // Set text color to white
+                            color: Colors.white,
                           ),
                         ),
                         SizedBox(height: 10.0),
                         Text(
-                          'Event Date: ${widget.event.getEventDate().toLocal().toString().split(' ')[0]}', // Format date
+                          'Event Date: ${widget.event.getEventDate().toLocal().toString().split(' ')[0]}', 
                           style: TextStyle(
                             fontSize: 16.0,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white, // Set text color to white
+                            color: Colors.white, 
                           ),
                         ),
                         SizedBox(height: 10.0),
@@ -181,7 +179,7 @@ class _EventPageState extends State<EventPage> {
                           style: TextStyle(
                             fontSize: 16.0,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white, // Set text color to white
+                            color: Colors.white, 
                           ),
                         ),
                         SizedBox(height: 10.0),
@@ -190,7 +188,7 @@ class _EventPageState extends State<EventPage> {
                           style: TextStyle(
                             fontSize: 14.0,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white, // Set text color to white
+                            color: Colors.white, 
                           ),
                         ),
                         SizedBox(height: 5.0),
@@ -198,7 +196,7 @@ class _EventPageState extends State<EventPage> {
                           widget.event.description,
                           style: TextStyle(
                             fontSize: 14.0,
-                            color: Colors.white, // Set text color to white
+                            color: Colors.white,
                           ),
                         ),
                       ],
@@ -212,7 +210,7 @@ class _EventPageState extends State<EventPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
-                  onPressed: _deleteEvent, // Delete the event
+                  onPressed: _deleteEvent, 
                   style: ElevatedButton.styleFrom(
                     shape: CircleBorder(),
                     backgroundColor: AppColor.color2,
@@ -229,16 +227,16 @@ class _EventPageState extends State<EventPage> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => EditEvent(
-                          eventData: widget.event.toMap(), // Pass event data
+                          eventData: widget.event.toMap(), 
                         ),
                       ),
                     );
                   },
                   icon: Icon(Icons.edit_outlined,
-                      color: Colors.white), // Set icon color to white
+                      color: Colors.white), 
                   label: Text('Edit',
                       style: TextStyle(
-                          color: Colors.white)), // Set text color to white
+                          color: Colors.white)),
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.0),
