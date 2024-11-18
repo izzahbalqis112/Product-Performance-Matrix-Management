@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppFonts {
-  // Define the title style
   static TextStyle text24(Color color) {
     return GoogleFonts.ubuntu(
       fontSize: 24,
@@ -19,7 +18,6 @@ class AppFonts {
     );
   }
 
-  // Define the normal text style
   static TextStyle text18(Color color) {
     return GoogleFonts.ubuntu(
       fontSize: 18,
@@ -75,7 +73,6 @@ class AppFonts {
       color: color,
     );
   }
-  // Define the medium text style
   static TextStyle text20(Color color) {
     return GoogleFonts.ubuntu(
       fontSize: 20,
