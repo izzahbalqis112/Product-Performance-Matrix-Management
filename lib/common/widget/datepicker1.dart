@@ -10,7 +10,7 @@ class DatePicker1 extends StatelessWidget {
   final IconData prefixIcon;
   final bool isValid;
   final Function(String) onChanged;
-  final String? Function(String?)? validator; // Updated type
+  final String? Function(String?)? validator; 
 
   DatePicker1({
     required this.controller,
@@ -18,7 +18,7 @@ class DatePicker1 extends StatelessWidget {
     required this.prefixIcon,
     required this.isValid,
     required this.onChanged,
-    this.validator, // Optional, since it's nullable
+    this.validator,
   });
 
   @override
@@ -56,8 +56,8 @@ class DatePicker1 extends StatelessWidget {
           onTap: () async {
             DateTime now = DateTime.now();
             DateTime initialDate = now;
-            DateTime firstDate = DateTime(2000); // Adjust as needed
-            DateTime lastDate = DateTime(2101); // Adjust as needed
+            DateTime firstDate = DateTime(2000);
+            DateTime lastDate = DateTime(2101); 
 
             DateTime? selectedDate = await showDatePicker(
               context: context,
