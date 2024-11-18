@@ -33,7 +33,6 @@ class _ProfilePageState extends State<ProfilePage> with TickerProviderStateMixin
     {'method': 'Logout', 'icon': Icons.logout},
   ];
 
-  // Variable to store the selected payment method
   String selectedMethod = 'Edit Profile';
 
   Future<void> _getCurrentUser() async {
@@ -57,7 +56,7 @@ class _ProfilePageState extends State<ProfilePage> with TickerProviderStateMixin
   void _showLogoutConfirmationDialog() {
     showDialog(
       context: context,
-      barrierDismissible: false, // Prevent background clicks
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text("Logout Confirmation"),
@@ -65,7 +64,7 @@ class _ProfilePageState extends State<ProfilePage> with TickerProviderStateMixin
           actions: <Widget>[
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
+                Navigator.of(context).pop(); 
               },
               child: Text(
                 "Cancel",
@@ -74,9 +73,8 @@ class _ProfilePageState extends State<ProfilePage> with TickerProviderStateMixin
             ),
             TextButton(
               onPressed: () {
-                // Perform the delete operation
                 _signOut();
-                Navigator.of(context).pop(); // Close the dialog
+                Navigator.of(context).pop(); 
               },
               child: Text(
                 "Yes",
@@ -98,7 +96,6 @@ class _ProfilePageState extends State<ProfilePage> with TickerProviderStateMixin
           .get();
 
       if (userDataSnapshot.docs.isNotEmpty) {
-        // Retrieve user data
         Map<String, dynamic> userData = (userDataSnapshot.docs.first.data() as Map<String, dynamic>);
         setState(() {
           _userProfileData = userData;
@@ -114,28 +111,17 @@ class _ProfilePageState extends State<ProfilePage> with TickerProviderStateMixin
 
   void _handleDeletePressed() async {
     try {
-      // Get the user's email
       String? userEmail = _currentUser.email;
-
-      // Query the user document based on the email
       QuerySnapshot userQuerySnapshot = await FirebaseFirestore.instance
           .collection('usersAccount')
           .where('email', isEqualTo: userEmail)
           .limit(1)
           .get();
 
-      // Check if the user document exists
       if (userQuerySnapshot.docs.isNotEmpty) {
-        // Get the user document reference
         DocumentReference userDocRef = userQuerySnapshot.docs.first.reference;
-
-        // Delete the user document
         await userDocRef.delete();
-
-        // Delete the user's account
         await _currentUser.delete();
-
-        // Sign out the user after deletion
         await _auth.signOut();
 
         Navigator.pushReplacement(
@@ -144,7 +130,6 @@ class _ProfilePageState extends State<ProfilePage> with TickerProviderStateMixin
         );
 
       } else {
-        // User document does not exist
         print('User document not found.');
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -154,8 +139,6 @@ class _ProfilePageState extends State<ProfilePage> with TickerProviderStateMixin
       }
     } catch (e) {
       print('Error deleting user account: $e');
-
-      // Show error message to the user
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Failed to delete account. Please try again later.'),
@@ -167,7 +150,7 @@ class _ProfilePageState extends State<ProfilePage> with TickerProviderStateMixin
   void _showDeleteConfirmationDialog() {
     showDialog(
       context: context,
-      barrierDismissible: false, // Prevent background clicks
+      barrierDismissible: false, 
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text("Deletion Confirmation"),
@@ -176,7 +159,7 @@ class _ProfilePageState extends State<ProfilePage> with TickerProviderStateMixin
           actions: <Widget>[
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
+                Navigator.of(context).pop();
               },
               child: Text(
                 "Cancel",
@@ -209,7 +192,7 @@ class _ProfilePageState extends State<ProfilePage> with TickerProviderStateMixin
 
   Widget _buildLoadingScreen() {
     return Center(
-      child: CircularProgressIndicator(), // Display a circular progress indicator while loading
+      child: CircularProgressIndicator(), 
     );
   }
 
@@ -264,17 +247,17 @@ class _ProfilePageState extends State<ProfilePage> with TickerProviderStateMixin
   }
 
   Widget _buildProfileMethods() {
-    final double containerWidth = MediaQuery.of(context).size.width * 0.8; // Fixed width for the containers
-    final double containerHeight = 60.0; // Fixed height for the containers
+    final double containerWidth = MediaQuery.of(context).size.width * 0.8; 
+    final double containerHeight = 60.0; 
 
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16), // Add horizontal margin
+      margin: EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ...profileMethods.map((profileM) {
             String method = profileM['method'];
-            IconData icon = profileM['icon'] ?? Icons.help_outline; // Provide a default icon if null
+            IconData icon = profileM['icon'] ?? Icons.help_outline; 
             bool isSelected = method == selectedMethod;
             return GestureDetector(
               onTap: () async {
@@ -293,7 +276,6 @@ class _ProfilePageState extends State<ProfilePage> with TickerProviderStateMixin
                     ),
                   );
                   if (result == true) {
-                    // Refresh the user profile data
                     await fetchAndDisplayUserData(_currentUser.email!);
                   }
                 }
@@ -317,12 +299,12 @@ class _ProfilePageState extends State<ProfilePage> with TickerProviderStateMixin
                         Icon(
                           icon,
                           size: 30,
-                          color: isSelected ? AppColor.black : AppColor.black.withOpacity(0.6), // Set icon color based on selection
+                          color: isSelected ? AppColor.black : AppColor.black.withOpacity(0.6), 
                         ),
                         SizedBox(width: 10),
                         Text(
                           method,
-                          style: isSelected ? AppFonts.text18Bold(AppColor.black) : AppFonts.text18(AppColor.black.withOpacity(0.6)), // Use custom font style
+                          style: isSelected ? AppFonts.text18Bold(AppColor.black) : AppFonts.text18(AppColor.black.withOpacity(0.6)), 
                         ),
                       ],
                     ),
@@ -360,16 +342,16 @@ class _ProfilePageState extends State<ProfilePage> with TickerProviderStateMixin
                   shape: BoxShape.circle,
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.5), // Shadow color
-                      spreadRadius: 2, // Spread radius
-                      blurRadius: 8, // Blur radius
-                      offset: Offset(0, 4), // Offset for the shadow
+                      color: Colors.black.withOpacity(0.5), 
+                      spreadRadius: 2, 
+                      blurRadius: 8,
+                      offset: Offset(0, 4),
                     ),
                   ],
                   image: DecorationImage(
                     fit: BoxFit.cover,
                     image: photoUrl != null && photoUrl.isNotEmpty
-                        ? NetworkImage(photoUrl) // Use the updated image URL
+                        ? NetworkImage(photoUrl) 
                         : AssetImage('assets/img/userProfile.jpeg') as ImageProvider,
                   ),
                 ),
@@ -392,7 +374,7 @@ class _ProfilePageState extends State<ProfilePage> with TickerProviderStateMixin
                       ).then((value) {
                         if (value != null) {
                           setState(() {
-                            _userProfileData?['picture'] = value; // Update _userProfileData with the new photo URL
+                            _userProfileData?['picture'] = value;
                           });
                         }
                       });
