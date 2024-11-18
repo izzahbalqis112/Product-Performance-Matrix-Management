@@ -13,7 +13,7 @@ class MainCtgResultsPage extends StatefulWidget {
 
 class _MainCtgResultsPageState extends State<MainCtgResultsPage> with TickerProviderStateMixin {
   Map<String, List<Map<String, dynamic>>> categorizedProjects = {};
-  Map<String, List<String>> selectedProjects = {}; // Tracks selected projects by category
+  Map<String, List<String>> selectedProjects = {}; 
   bool isLoading = true;
 
   @override
@@ -82,7 +82,6 @@ class _MainCtgResultsPageState extends State<MainCtgResultsPage> with TickerProv
   void _processSelectedProjects(String category) {
     final selected = selectedProjects[category];
     if (selected != null && selected.length == 2) {
-      // Navigate to the process page with the selected projects
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -92,7 +91,6 @@ class _MainCtgResultsPageState extends State<MainCtgResultsPage> with TickerProv
         ),
       );
     } else {
-      // Show a message or handle cases where selection is not complete
       print('Please select two projects from the $category category.');
     }
   }
