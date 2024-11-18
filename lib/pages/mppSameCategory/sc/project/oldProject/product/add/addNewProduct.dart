@@ -69,7 +69,7 @@ class _AddProductDialogState extends State<AddProductDialog> {
       }
 
       ProductModel productModel = ProductModel(
-        projectId: widget.projectId, // use widget.projectId
+        projectId: widget.projectId, 
         productId: _productIdController.text,
         productName: _productNameController.text,
         launchDate: launchDate,
@@ -160,7 +160,6 @@ class _AddProductDialogState extends State<AddProductDialog> {
                         style: AppFonts.text16Bold(AppColor.bgGreen),
                       ),
                       SizedBox(height: 10),
-                      // productID
                       CustomTextFieldNew(
                         controller: _productIdController,
                         hintText: "Enter your product id",
@@ -193,7 +192,6 @@ class _AddProductDialogState extends State<AddProductDialog> {
                         style: AppFonts.text16Bold(AppColor.bgGreen),
                       ),
                       SizedBox(height: 10),
-                      // productName
                       CustomTextFieldNew(
                         controller: _productNameController,
                         hintText: "Enter your product name",
@@ -231,7 +229,6 @@ class _AddProductDialogState extends State<AddProductDialog> {
                         style: AppFonts.text16Bold(AppColor.bgGreen),
                       ),
                       SizedBox(height: 10),
-                      // launchDate
                       DatePicker1(
                         controller: _launchDateController,
                         hintText: "Select your launch date",
@@ -256,7 +253,6 @@ class _AddProductDialogState extends State<AddProductDialog> {
                         style: AppFonts.text16Bold(AppColor.bgGreen),
                       ),
                       SizedBox(height: 10),
-                      // status
                       CustomProductStatusField(
                         controller: _statusController,
                         hintText: 'Select Product Status',
@@ -282,12 +278,11 @@ class _AddProductDialogState extends State<AddProductDialog> {
                         style: AppFonts.text16Bold(AppColor.bgGreen),
                       ),
                       SizedBox(height: 10),
-                      // cost
                       CustomTextFieldNew(
                         controller: _costController,
                         hintText: "Enter your product cost",
                         prefixIcon: Icons.attach_money,
-                        suffixText: "RM", // Added RM suffix
+                        suffixText: "RM",
                         isValid: true,
                         keyboardType: TextInputType.numberWithOptions(decimal: true),
                         inputFormatters:  [FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*'))],
@@ -307,7 +302,6 @@ class _AddProductDialogState extends State<AddProductDialog> {
                         style: AppFonts.text16Bold(AppColor.bgGreen),
                       ),
                       SizedBox(height: 10),
-                      // functionality
                       CustomTextFieldNew(
                         controller: _functionalityController,
                         hintText: "Enter your product functionality",
@@ -319,7 +313,7 @@ class _AddProductDialogState extends State<AddProductDialog> {
                           setState(() {});
                         },
                         validator: (value) {
-                          return null; // No validation needed for optional field
+                          return null; 
                         },
                       ),
 
@@ -330,7 +324,6 @@ class _AddProductDialogState extends State<AddProductDialog> {
                         style: AppFonts.text16Bold(AppColor.bgGreen),
                       ),
                       SizedBox(height: 10),
-                      // model
                       CustomTextFieldNew(
                         controller: _modelController,
                         hintText: "Enter your product model",
@@ -351,14 +344,12 @@ class _AddProductDialogState extends State<AddProductDialog> {
                         style: AppFonts.text16Bold(AppColor.bgGreen),
                       ),
                       SizedBox(height: 10),
-                      // market demand
                       CustomMarketDemandField(
                         controller: _marketDemandController,
                         hintText: 'Select Market Demand',
                         prefixIcon: Icons.assignment,
                         showError: _showError,
                         onChanged: (value) {
-                          // Handle change
                           setState(() {
                             _marketDemandController.text = value;
                           });
