@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tf_pdpppms/common/appColors.dart';
-
 import '../appFonts.dart';
 
-// Define the enum for project statuses
 enum ProjectStatus { notStarted, inProgress, onHold }
-
-// Extension to get a string representation of the enum values
 extension ProjectStatusExtension on ProjectStatus {
   String get name {
     switch (this) {
@@ -43,16 +39,15 @@ class CustomProjectStatusField extends StatefulWidget {
 
 class _CustomProjectStatusFieldState extends State<CustomProjectStatusField> {
   ProjectStatus? _selectedStatus;
-  bool _hasInteracted = false; // Flag to track user interaction
-  String? _errorText; // Variable to manage error text
+  bool _hasInteracted = false; 
+  String? _errorText; 
 
   @override
   void initState() {
     super.initState();
-    // Initialize _selectedStatus using a safe approach
     _selectedStatus = ProjectStatus.values.firstWhere(
           (status) => status.name == widget.controller.text,
-      orElse: () => ProjectStatus.notStarted, // Use a default value if not found
+      orElse: () => ProjectStatus.notStarted,
     );
   }
 
@@ -86,14 +81,12 @@ class _CustomProjectStatusFieldState extends State<CustomProjectStatusField> {
           ),
           onChanged: (ProjectStatus? newValue) {
             setState(() {
-              _hasInteracted = true; // Set interaction flag when user changes value
+              _hasInteracted = true; 
               _selectedStatus = newValue;
               widget.controller.text = newValue?.name ?? '';
               if (widget.onChanged != null) {
                 widget.onChanged!(newValue?.name ?? '');
               }
-
-              // Perform validation here and set error state if necessary
               final validationResult = widget.validator?.call(newValue);
               _errorText = validationResult;
             });
@@ -107,13 +100,12 @@ class _CustomProjectStatusFieldState extends State<CustomProjectStatusField> {
               ),
             );
           }).toList(),
-          dropdownColor: AppColor.white, // Set dropdown background color
-          style:  AppFonts.text12(AppColor.black), // Smaller font size for selected value
+          dropdownColor: AppColor.white, 
+          style:  AppFonts.text12(AppColor.black), 
           validator: (value) {
             if (widget.validator != null) {
               return widget.validator!(value);
             }
-            // Default validation logic if validator is not provided
             if (value == null) {
               return 'Please select a project status';
             }
