@@ -11,7 +11,7 @@ class CustomLeadTimeField extends StatefulWidget {
   final bool isValid;
   final void Function(String)? onChanged;
   final String? Function(String?)? validator;
-  final String hintText; // New parameter for hint text
+  final String hintText; 
 
   CustomLeadTimeField({
     required this.startDateController,
@@ -20,7 +20,7 @@ class CustomLeadTimeField extends StatefulWidget {
     required this.isValid,
     this.onChanged,
     this.validator,
-    required this.hintText, // Initialize new parameter
+    required this.hintText,
   });
 
   @override
@@ -65,10 +65,10 @@ class _CustomLeadTimeFieldState extends State<CustomLeadTimeField> {
           final leadTime = end.difference(start).inDays;
           widget.leadTimeController.text = leadTime.toString();
         } else {
-          widget.leadTimeController.text = '0'; // Or any other default value
+          widget.leadTimeController.text = '0'; 
         }
       } catch (e) {
-        widget.leadTimeController.text = '0'; // Or any other default value
+        widget.leadTimeController.text = '0'; 
       }
     }
   }
@@ -86,7 +86,7 @@ class _CustomLeadTimeFieldState extends State<CustomLeadTimeField> {
                 focusNode: _focusNode,
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-                  hintText: widget.hintText, // Use hintText parameter
+                  hintText: widget.hintText, 
                   prefixIcon: Icon(
                     Icons.timelapse,
                     color: _isFocused ? AppColor.deepGreen : Colors.grey,
@@ -122,8 +122,8 @@ class _CustomLeadTimeFieldState extends State<CustomLeadTimeField> {
               ),
               child: DropdownButtonHideUnderline(
                 child: DropdownButton<String>(
-                  value: 'days', // Always display 'days'
-                  onChanged: null, // Disable interaction
+                  value: 'days',
+                  onChanged: null,
                   items: <String>['days']
                       .map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
@@ -134,7 +134,7 @@ class _CustomLeadTimeFieldState extends State<CustomLeadTimeField> {
                       ),
                     );
                   }).toList(),
-                  icon: SizedBox.shrink(), // Remove the dropdown icon
+                  icon: SizedBox.shrink(), 
                 ),
               ),
             ),
