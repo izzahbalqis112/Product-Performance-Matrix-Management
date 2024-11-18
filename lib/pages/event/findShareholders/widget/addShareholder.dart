@@ -3,7 +3,6 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:tf_pdpppms/pages/event/findShareholders/widget/shareholderModel.dart';
 import 'package:uuid/uuid.dart';
-
 import '../../../../common/appColors.dart';
 import '../../event/customtextfield.dart';
 
@@ -61,7 +60,7 @@ class _AddShareholderDetailsState extends State<AddShareholderDetails> {
         donation: donation,
         timestamp: Timestamp.now(),
         eventName:
-            _selectedEvent ?? 'No event selected', // Add selected event name
+            _selectedEvent ?? 'No event selected',
       );
 
       await _firestore
