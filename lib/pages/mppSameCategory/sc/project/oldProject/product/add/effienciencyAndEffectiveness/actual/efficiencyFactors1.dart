@@ -22,20 +22,15 @@ class EfficiencyFactors1Page extends StatefulWidget {
 
 class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with SingleTickerProviderStateMixin{
   final _formKey = GlobalKey<FormState>();
-  // Development lead time
   final _plannedStartDateController = TextEditingController();
   final _plannedEndDateController = TextEditingController();
   final _plannedDurationController = TextEditingController();
   DateTime? _startDate;
-
-  // Development cost
   final _plannedLaborCostController = TextEditingController();
   final _plannedMaterialCostController = TextEditingController();
   final _plannedOverheadCostController = TextEditingController();
   final _otherPlannedCostController = TextEditingController();
   final _plannedDevCostController = TextEditingController();
-
-  // Product Performance
   final _plannedUnitSalesController = TextEditingController();
   final _plannedMarketShareController = TextEditingController();
   final _plannedRevenueController = TextEditingController();
@@ -44,69 +39,41 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
   final _normalizedPlannedUnitSalesController = TextEditingController();
   final _maxPlannedRevenueController = TextEditingController();
   final _normalizedPlannedRevenueController = TextEditingController();
-
-  //Meeting quality goals
   final _plannedQualityGoalsController = TextEditingController();
-
-  //waste reduction
   final _plannedWasteReductionTargetController = TextEditingController();
   final _plannedTotalProductionController = TextEditingController();
   final _plannedWasteReductionController = TextEditingController();
-
   double _defectRate = 0.0;
   double _customerSatisfaction = 0.0;
   double _complianceRate = 0.0;
-
   late AnimationController _animationController;
   late Animation<double> _opacityAnimation;
-
-  //launched on time
   final _plannedLaunchDateController = TextEditingController();
   DateTime? _launchDate;
-
-  // Cost efficiency
   final _plannedDevelopmentCostController = TextEditingController();
   final _plannedProductionCostController = TextEditingController();
   final _plannedOperationalCostController = TextEditingController();
   final _plannedCostEfficiencyMetricsController = TextEditingController();
-
-  //Yearly unit sales
   final _plannedUnitSalesYearlyController = TextEditingController();
-
-  //Resource utilization
   final _plannedHoursController = TextEditingController();
   final _plannedCostsController = TextEditingController();
   final _plannedMaterialUsageController = TextEditingController();
   final _plannedResourceUtilizationController = TextEditingController();
-
-  //time to market
   final _plannedTimeToMarketController = TextEditingController();
-
-  //process cycle efficiency
   final _plannedValueController = TextEditingController();
   final _plannedAddedTimeController = TextEditingController();
   final _plannedTotalCycleTimeController = TextEditingController();
   final _plannedPCEController = TextEditingController();
-
-  //Resource allocation efficiency
   final _totalPlannedResourceAllocationController = TextEditingController();
-
-  //Prototype iteration time
   final _plannedTotalPrototypeIterationTimeController = TextEditingController();
-
-  //Manufacturing efficiency
   final _plannedTotalOutputController = TextEditingController();
   final _plannedTotalInputController = TextEditingController();
   final _plannedManufacturingEfficiencyController = TextEditingController();
-
-  //cycle time reduction
   final _plannedCycleTimeController = TextEditingController();
   final _plannedTargetCycleTimeController = TextEditingController();
   final _plannedCycleTimeReductionController = TextEditingController();
   String _selectedFormat = 'HH';
   final List<String> _formats = ['HH', 'MM', 'SS', 'Days'];
-
-  //milestones achievement
   final _plannedDeliveryTimeController = TextEditingController();
   final _plannedBudgetCostsController = TextEditingController();
   final _plannedComplianceController = TextEditingController();
@@ -131,50 +98,39 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
     super.initState();
     _plannedStartDateController.addListener(_updatePlannedDuration);
     _plannedEndDateController.addListener(_updatePlannedDuration);
-
     _plannedLaborCostController.addListener(_updatePlannedDevCost);
     _plannedMaterialCostController.addListener(_updatePlannedDevCost);
     _plannedOverheadCostController.addListener(_updatePlannedDevCost);
     _otherPlannedCostController.addListener(_updatePlannedDevCost);
-
     _plannedUnitSalesController.addListener(_updateNormalizedPlannedUnitSales);
     _plannedMarketShareController.addListener(_updatePlannedProductPerformance);
     _plannedRevenueController.addListener(_updateNormalizedPlannedRevenue);
     _maxPlannedUnitSalesController.addListener(_updateNormalizedPlannedUnitSales);
     _maxPlannedRevenueController.addListener(_updateNormalizedPlannedRevenue);
     _plannedProductPerformanceController.addListener(_updatePlannedProductPerformance);
-
     _animationController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 500),
     );
     _opacityAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(_animationController);
     _animationController.forward();
-
     _plannedDevelopmentCostController.addListener(_updatePlannedCostEfficiencyMetrics);
     _plannedProductionCostController.addListener(_updatePlannedCostEfficiencyMetrics);
     _plannedOperationalCostController.addListener(_updatePlannedCostEfficiencyMetrics);
-
     _plannedHoursController.addListener(_updatePlannedResourceUtilization);
     _plannedCostsController.addListener(_updatePlannedResourceUtilization);
     _plannedMaterialUsageController.addListener(_updatePlannedResourceUtilization);
-
     _plannedStartDateController.addListener(_updateTimeToMarket);
     _plannedLaunchDateController.addListener(_updateTimeToMarket);
-
     _plannedValueController.addListener(_updatePlannedPCE);
     _plannedAddedTimeController.addListener(_updatePlannedPCE);
     _plannedTotalCycleTimeController.addListener(_updatePlannedPCE);
-
     _plannedWasteReductionTargetController.addListener(_updatePlannedWasteReduction);
     _plannedTotalProductionController.addListener(_updatePlannedWasteReduction);
-
     _plannedTotalOutputController.addListener(_updatePlannedManufacturingEfficiency);
     _plannedTotalInputController.addListener(_updatePlannedManufacturingEfficiency);
-
     _plannedCycleTimeController.addListener(_updatePCTR);
     _plannedTargetCycleTimeController.addListener(_updatePCTR);
-
     _plannedDeliveryTimeController.addListener(_calculateSupplierEfficiency);
     _plannedBudgetCostsController.addListener(_calculateSupplierEfficiency);
     _plannedComplianceController.addListener(_calculateSupplierEfficiency);
@@ -196,36 +152,29 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
   void dispose() {
     _plannedStartDateController.removeListener(_updatePlannedDuration);
     _plannedEndDateController.removeListener(_updatePlannedDuration);
-
     _plannedLaborCostController.removeListener(_updatePlannedDevCost);
     _plannedMaterialCostController.removeListener(_updatePlannedDevCost);
     _plannedOverheadCostController.removeListener(_updatePlannedDevCost);
     _otherPlannedCostController.removeListener(_updatePlannedDevCost);
-
     _plannedUnitSalesController.removeListener(_updateNormalizedPlannedUnitSales);
     _plannedMarketShareController.removeListener(_updatePlannedProductPerformance);
     _plannedRevenueController.removeListener(_updateNormalizedPlannedRevenue);
     _maxPlannedUnitSalesController.removeListener(_updateNormalizedPlannedUnitSales);
     _maxPlannedRevenueController.removeListener(_updateNormalizedPlannedRevenue);
     _plannedProductPerformanceController.removeListener(_updatePlannedProductPerformance);
-
     _plannedDevelopmentCostController.removeListener(_updatePlannedCostEfficiencyMetrics);
     _plannedProductionCostController.removeListener(_updatePlannedCostEfficiencyMetrics);
     _plannedOperationalCostController.removeListener(_updatePlannedCostEfficiencyMetrics);
-
     _plannedStartDateController.removeListener(_updateTimeToMarket);
     _plannedLaunchDateController.removeListener(_updateTimeToMarket);
-
     _plannedStartDateController.dispose();
     _plannedEndDateController.dispose();
     _plannedDurationController.dispose();
-
     _plannedLaborCostController.dispose();
     _plannedMaterialCostController.dispose();
     _plannedOverheadCostController.dispose();
     _otherPlannedCostController.dispose();
     _plannedDevCostController.dispose();
-
     _plannedUnitSalesController.dispose();
     _maxPlannedUnitSalesController.dispose();
     _normalizedPlannedUnitSalesController.dispose();
@@ -234,59 +183,45 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
     _plannedProductPerformanceController.dispose();
     _maxPlannedRevenueController.dispose();
     _normalizedPlannedRevenueController.dispose();
-
     _animationController.dispose();
     _plannedQualityGoalsController.dispose();
-
     _plannedLaunchDateController.dispose();
-
     _plannedDevelopmentCostController.dispose();
     _plannedProductionCostController.dispose();
     _plannedOperationalCostController.dispose();
     _plannedCostEfficiencyMetricsController.dispose();
-
     _plannedUnitSalesYearlyController.dispose();
-
-    _plannedHoursController.removeListener(_updatePlannedResourceUtilization);
+   _plannedHoursController.removeListener(_updatePlannedResourceUtilization);
     _plannedCostsController.removeListener(_updatePlannedResourceUtilization);
     _plannedMaterialUsageController.removeListener(_updatePlannedResourceUtilization);
     _plannedHoursController.dispose();
     _plannedCostsController.dispose();
     _plannedMaterialUsageController.dispose();
     _plannedResourceUtilizationController.dispose();
-
     _plannedTimeToMarketController.dispose();
-
     _plannedValueController.removeListener(_updatePlannedPCE);
     _plannedAddedTimeController.removeListener(_updatePlannedPCE);
     _plannedTotalCycleTimeController.removeListener(_updatePlannedPCE);
-
     _plannedValueController.dispose();
     _plannedAddedTimeController.dispose();
     _plannedTotalCycleTimeController.dispose();
     _plannedPCEController.dispose();
-
     _totalPlannedResourceAllocationController.dispose();
-
     _plannedTotalPrototypeIterationTimeController.dispose();
-
     _plannedWasteReductionTargetController.removeListener(_updatePlannedWasteReduction);
     _plannedTotalProductionController.removeListener(_updatePlannedWasteReduction);
     _plannedWasteReductionTargetController.dispose();
     _plannedTotalProductionController.dispose();
     _plannedWasteReductionController.dispose();
-
     _plannedTotalOutputController.removeListener(_updatePlannedManufacturingEfficiency);
     _plannedTotalInputController.removeListener(_updatePlannedManufacturingEfficiency);
     _plannedTotalOutputController.dispose();
     _plannedTotalInputController.dispose();
-
     _plannedCycleTimeController.removeListener(_updatePCTR);
     _plannedTargetCycleTimeController.removeListener(_updatePCTR);
     _plannedCycleTimeController.dispose();
     _plannedTargetCycleTimeController.dispose();
     _plannedCycleTimeReductionController.dispose();
-
     _plannedDeliveryTimeController.dispose();
     _plannedBudgetCostsController.dispose();
     _plannedComplianceController.dispose();
@@ -303,7 +238,6 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
     _plannedCommunicationEfficiencyController.dispose();
     _plannedReliabilityController.dispose();
     _plannedSupplierEfficiencyController.dispose();
-
     _plannedDeliveryTimeController.removeListener(_calculateSupplierEfficiency);
     _plannedBudgetCostsController.removeListener(_calculateSupplierEfficiency);
     _plannedComplianceController.removeListener(_calculateSupplierEfficiency);
@@ -319,7 +253,6 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
     _plannedFlexibilityController.removeListener(_calculateSupplierEfficiency);
     _plannedCommunicationEfficiencyController.removeListener(_calculateSupplierEfficiency);
     _plannedReliabilityController.removeListener(_calculateSupplierEfficiency);
-
     _plannedDeliveryTimeController.dispose();
     _plannedBudgetCostsController.dispose();
     _plannedComplianceController.dispose();
@@ -342,7 +275,6 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
 
   void _saveEfficiency() async {
     try {
-      // Capture data from controllers
       Map<String, dynamic> efficiencyData = {
         'productId': widget.productId,
         'projectId': widget.projectId,
@@ -411,7 +343,6 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
         'SupplierEfficiency': _plannedSupplierEfficiencyController.text,
       };
 
-      // Save to Firestore within the selected project ID collection
       await FirebaseFirestore.instance
           .collection('projects')
           .doc(widget.projectId)
@@ -435,7 +366,7 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(message),
-        backgroundColor: Colors.green, // You can choose any color you like
+        backgroundColor: Colors.green, 
       ),
     );
   }
@@ -444,7 +375,7 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(message),
-        backgroundColor: Colors.red, // You can choose any color you like
+        backgroundColor: Colors.red,
       ),
     );
   }
@@ -499,20 +430,18 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
       return 'Please enter market share';
     }
 
-    // Define a regex to check for the correct format
-    final regex = RegExp(r'^\d{1,3}(\.\d{1,2})?$'); // Allows up to 2 decimal places
+    final regex = RegExp(r'^\d{1,3}(\.\d{1,2})?$');
 
     if (!regex.hasMatch(value)) {
       return 'Please enter a valid number in the format 0.00';
     }
 
-    // Optionally, check if the number is within a specific range
     final marketShare = double.tryParse(value) ?? 0.0;
     if (marketShare < 0.0 || marketShare > 100.0) {
       return 'Please enter a value between 0.00 and 100.00';
     }
 
-    return null; // Input is valid
+    return null; 
   }
 
   String? _validatePlannedRevenue(String? value) {
@@ -537,19 +466,12 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
   }
 
   void _updatePlannedProductPerformance() {
-    // Parse values as double to handle percentages and decimals
     final normalizeUnitSales = double.tryParse(_normalizedPlannedUnitSalesController.text) ?? 0.0;
     final plannedMarketShare = double.tryParse(_plannedMarketShareController.text) ?? 0.0;
     final normalizeRevenue = double.tryParse(_normalizedPlannedRevenueController.text) ?? 0.0;
-
-    // Calculate total product performance by averaging the percentage values
     final totalPercentages = [normalizeUnitSales, plannedMarketShare, normalizeRevenue];
     final averagePerformance = totalPercentages.reduce((a, b) => a + b) / totalPercentages.length;
-
-    // Cap the performance at 100% if it exceeds that value
     final cappedPerformance = averagePerformance > 100.0 ? 100.0 : averagePerformance;
-
-    // Set the result in percentage format with 2 decimal places
     _plannedProductPerformanceController.text = cappedPerformance.toStringAsFixed(2);
   }
 
@@ -566,14 +488,11 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
   }
 
   void _updateNormalizedPlannedRevenue() {
-    // Parse the values as double to handle decimals
     final plannedRevenue = double.tryParse(_plannedRevenueController.text) ?? 0.0;
     final maxPlannedRevenue = double.tryParse(_maxPlannedRevenueController.text) ?? 0.0;
 
     if (maxPlannedRevenue > 0) {
-      // Calculate normalized revenue as a percentage
       final normalizedPlannedRevenue = (plannedRevenue / maxPlannedRevenue) * 100;
-      // Format the percentage value to 2 decimal places
       _normalizedPlannedRevenueController.text = normalizedPlannedRevenue.toStringAsFixed(2);
     } else {
       _normalizedPlannedRevenueController.text = '0.00';
@@ -640,16 +559,11 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
   }
 
   void _updatePlannedResourceUtilization() {
-    // Parse input values
     final plannedHours = int.tryParse(_plannedHoursController.text) ?? 0;
     final plannedCosts = double.tryParse(_plannedCostsController.text) ?? 0.0;
     final plannedMaterialUsage = double.tryParse(_plannedMaterialUsageController.text) ?? 0.0;
-
-    // Calculate total resource utilization
     final totalResourceUtilization = plannedHours + plannedCosts + plannedMaterialUsage;
-
-    // Update the controller with the calculated value
-    _plannedResourceUtilizationController.text = totalResourceUtilization.toStringAsFixed(2); // Format to 2 decimal places
+    _plannedResourceUtilizationController.text = totalResourceUtilization.toStringAsFixed(2);
   }
 
   void _updateTimeToMarket() {
@@ -663,15 +577,15 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
 
         if (launch.isAfter(start)) {
           final timeToMarket = launch.difference(start).inDays;
-          _plannedTimeToMarketController.text = timeToMarket.toString(); // Display in days
+          _plannedTimeToMarketController.text = timeToMarket.toString(); 
         } else {
-          _plannedTimeToMarketController.text = '0'; // Or any other default value
+          _plannedTimeToMarketController.text = '0'; 
         }
       } catch (e) {
-        _plannedTimeToMarketController.text = '0'; // Or any other default value
+        _plannedTimeToMarketController.text = '0'; 
       }
     } else {
-      _plannedTimeToMarketController.text = '0'; // Default value if dates are not set
+      _plannedTimeToMarketController.text = '0'; 
     }
   }
 
@@ -696,31 +610,21 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
   }
 
   void _updatePlannedWasteReduction() {
-    // Retrieve values from controllers
     final totalProductionString = _plannedTotalProductionController.text;
     final wasteReductionTargetString = _plannedWasteReductionTargetController.text;
-
-    // Parse the values to double
     final totalProduction = double.tryParse(totalProductionString);
     final wasteReductionTarget = double.tryParse(wasteReductionTargetString);
-
-    // Calculate the Planned Waste Reduction
     double plannedWasteReduction;
-
     if (totalProduction != null && totalProduction > 0) {
       if (wasteReductionTarget != null) {
         plannedWasteReduction = wasteReductionTarget / totalProduction;
       } else {
-        // Handle case where wasteReductionTarget is not a valid number
         plannedWasteReduction = 0.0;
       }
     } else {
-      // Handle case where totalProduction is zero or not a valid number
       plannedWasteReduction = 0.0;
     }
-
-    // Update the _plannedWasteReductionController with the calculated value
-    _plannedWasteReductionController.text = plannedWasteReduction.toStringAsFixed(2); // Format to 2 decimal places
+    _plannedWasteReductionController.text = plannedWasteReduction.toStringAsFixed(2); 
   }
 
   void _updatePCTR() {
@@ -745,13 +649,13 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
 
     switch (format) {
       case 'HH':
-        return timeValue * 3600; // Convert hours to seconds
+        return timeValue * 3600;
       case 'MM':
-        return timeValue * 60; // Convert minutes to seconds
+        return timeValue * 60; 
       case 'SS':
-        return timeValue; // Already in seconds
+        return timeValue; 
       case 'Days':
-        return timeValue * 86400; // Convert days to seconds
+        return timeValue * 86400; 
       default:
         return 0.0;
     }
@@ -774,19 +678,18 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
   void _calculateSupplierEfficiency() {
     double total = 0;
 
-    // Helper functions to convert various units to a standard format
     double parseAndAddCurrency(String? text) {
       double value = double.tryParse(text?.replaceAll('RM', '').trim() ?? '') ?? 0;
-      return value; // Assumes value is in base currency
+      return value; 
     }
 
     double parseAndAddPercentage(String? text) {
       double value = double.tryParse(text?.replaceAll('%', '').trim() ?? '') ?? 0;
-      return value / 100; // Convert percentage to a fraction
+      return value / 100; 
     }
 
     double parseAndAddDays(String? text) {
-      return double.tryParse(text?.trim() ?? '') ?? 0; // Directly use days
+      return double.tryParse(text?.trim() ?? '') ?? 0; 
     }
 
     double parseAndAddTime(String? text) {
@@ -797,10 +700,9 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
       double minutes = parts.length > 1 ? double.tryParse(parts[1]) ?? 0 : 0;
       double seconds = parts.length > 2 ? double.tryParse(parts[2]) ?? 0 : 0;
 
-      return hours + (minutes / 60) + (seconds / 3600); // Convert to total hours
+      return hours + (minutes / 60) + (seconds / 3600); 
     }
 
-    // Create a helper function to parse and add values based on their type
     double parseAndAdd(String? text, {required String unit}) {
       switch (unit) {
         case 'currency':
@@ -816,7 +718,6 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
       }
     }
 
-    // Add all the planned performance metrics with their units
     total += parseAndAdd(_plannedDeliveryTimeController.text, unit: 'days');
     total += parseAndAdd(_plannedBudgetCostsController.text, unit: 'currency');
     total += parseAndAdd(_plannedComplianceController.text, unit: 'percentage');
@@ -833,7 +734,6 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
     total += parseAndAdd(_plannedCommunicationEfficiencyController.text, unit: 'percentage');
     total += parseAndAdd(_plannedReliabilityController.text, unit: 'percentage');
 
-    // Update the planned supplier efficiency controller
     _plannedSupplierEfficiencyController.text = total.toStringAsFixed(2);
   }
 
@@ -866,7 +766,6 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      //Dev. lead time
                       Text(
                         'Development Lead Time :',
                         style: AppFonts.text16Bold(AppColor.white),
@@ -925,10 +824,10 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                               hintText: "Select end date",
                               prefixIcon: Icons.calendar_today,
                               isValid: true,
-                              minDate: _startDate, // Set minimum date for end date picker
+                              minDate: _startDate, 
                               onChanged: (value) {
                                 setState(() {
-                                  _updatePlannedDuration(); // Ensure duration is updated when end date changes
+                                  _updatePlannedDuration(); 
                                 });
                               },
                               validator: (value) {
@@ -964,7 +863,6 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                         ),
                       ),
                       SizedBox(height: 20),
-                      //dev. cost
                       Text(
                         'Development Cost :',
                         style: AppFonts.text16Bold(AppColor.white),
@@ -1155,7 +1053,6 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                         ),
                       ),
                       SizedBox(height: 20),
-                      //Product performance
                       Text(
                         'Product Performance :',
                         style: AppFonts.text16Bold(AppColor.white),
@@ -1196,9 +1093,9 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                                   _updatePlannedProductPerformance();
                                 });
                               },
-                              keyboardType: TextInputType.number, // Changed to number only
+                              keyboardType: TextInputType.number,
                               inputFormatters: [
-                                FilteringTextInputFormatter.digitsOnly // Allow only digits
+                                FilteringTextInputFormatter.digitsOnly
                               ],
                               showIncrementDecrement: true,
                               onIncrement: () {
@@ -1217,8 +1114,6 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                             ),
 
                             SizedBox(height: 20),
-
-                            // Maximum Planned Unit Sales
                             Text(
                               'Maximum Unit Sales :',
                               style: AppFonts.text16Bold(AppColor.deepGreen1),
@@ -1235,9 +1130,9 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                                   _updateNormalizedPlannedUnitSales();
                                 });
                               },
-                              keyboardType: TextInputType.number, // Changed to number only
+                              keyboardType: TextInputType.number, 
                               inputFormatters: [
-                                FilteringTextInputFormatter.digitsOnly // Allow only digits
+                                FilteringTextInputFormatter.digitsOnly
                               ],
                               showIncrementDecrement: true,
                               onIncrement: () {
@@ -1257,7 +1152,6 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
 
                             SizedBox(height: 20),
 
-                            // Normalized Planned Unit Sales
                             Text(
                               'Normalized Unit Sales :',
                               style: AppFonts.text16Bold(AppColor.deepGreen1),
@@ -1453,7 +1347,6 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                         ),
                       ),
                       SizedBox(height: 20),
-                      //Quality product
                       Text(
                         'Quality Product :',
                         style: AppFonts.text16Bold(AppColor.white),
@@ -1536,7 +1429,6 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                         ),
                       ),
                       SizedBox(height: 20),
-                      //Launched on time
                       Text(
                         'Launched On Time :',
                         style: AppFonts.text16Bold(AppColor.white),
@@ -1587,7 +1479,6 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                         ),
                       ),
                       SizedBox(height: 20),
-                      //Cost Efficiency
                       Text(
                         'Cost Efficiency :',
                         style: AppFonts.text16Bold(AppColor.white),
@@ -1742,7 +1633,6 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                         ),
                       ),
                       SizedBox(height: 20),
-                      //yearly unit sales
                       Text(
                         'Yearly unit sales :',
                         style: AppFonts.text16Bold(AppColor.white),
@@ -1777,9 +1667,9 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                               prefixIcon: Icons.monetization_on,
                               isValid: true,
                               suffixText: 'Units',
-                              keyboardType: TextInputType.number, // Changed to number only
+                              keyboardType: TextInputType.number, 
                               inputFormatters: [
-                                FilteringTextInputFormatter.digitsOnly // Allow only digits
+                                FilteringTextInputFormatter.digitsOnly 
                               ],
                               showIncrementDecrement: true,
                               onIncrement: () {
@@ -1798,7 +1688,6 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                         ),
                       ),
                       SizedBox(height: 20),
-                      //resource utilization
                       Text(
                         'Resource utilization :',
                         style: AppFonts.text16Bold(AppColor.white),
@@ -1841,7 +1730,7 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                               keyboardType: TextInputType.numberWithOptions(decimal: true),
                               inputFormatters: [
                                 FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*')),
-                                LengthLimitingTextInputFormatter(2), // Limits to 2 characters
+                                LengthLimitingTextInputFormatter(2),
                               ],
                               showIncrementDecrement: true,
                               onIncrement: () {
@@ -1860,9 +1749,7 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                               },
                               validator: _validatePlannedHours,
                             ),
-
                             SizedBox(height: 20),
-
                             Text(
                               ' Costs :',
                               style: AppFonts.text16Bold(AppColor.deepGreen1),
@@ -1918,7 +1805,7 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                               keyboardType: TextInputType.numberWithOptions(decimal: true),
                               inputFormatters: [
                                 FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*')),
-                                LengthLimitingTextInputFormatter(10), // Limits total length, adjust as needed
+                                LengthLimitingTextInputFormatter(10),
                               ],
                               showIncrementDecrement: true,
                               onIncrement: () {
@@ -1967,7 +1854,6 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                         ),
                       ),
                       SizedBox(height: 20),
-                      //time to market
                       Text(
                         'Time To Market :',
                         style: AppFonts.text16Bold(AppColor.white),
@@ -2014,7 +1900,6 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                         ),
                       ),
                       SizedBox(height: 20),
-                      //process cycle efficiency
                       Text(
                         ' Cycle Efficiency :',
                         style: AppFonts.text16Bold(AppColor.white),
@@ -2095,7 +1980,7 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                               },
                               keyboardType: TextInputType.number,
                               inputFormatters: [
-                                FilteringTextInputFormatter.digitsOnly, // Allow only digits
+                                FilteringTextInputFormatter.digitsOnly,
                               ],
                               showIncrementDecrement: false,
                               validator: (value) {
@@ -2128,7 +2013,7 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                               },
                               keyboardType: TextInputType.number,
                               inputFormatters: [
-                                FilteringTextInputFormatter.digitsOnly, // Allow only digits
+                                FilteringTextInputFormatter.digitsOnly, 
                               ],
                               showIncrementDecrement: false,
                               validator: (value) {
@@ -2166,7 +2051,6 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                         ),
                       ),
                       SizedBox(height: 20),
-                      //resource allocation efficiency
                       Text(
                         'Resource Allocation Efficiency :',
                         style: AppFonts.text16Bold(AppColor.white),
@@ -2220,7 +2104,6 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                         ),
                       ),
                       SizedBox(height: 20),
-                      //prototype iteration time
                       Text(
                         'Prototype Iteration Time :',
                         style: AppFonts.text16Bold(AppColor.white),
@@ -2257,24 +2140,20 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                               suffixText: 'HH:MM',
                               keyboardType: TextInputType.text,
                               inputFormatters: [
-                                FilteringTextInputFormatter.allow(RegExp(r'[0-9:]')), // Allow only digits and colon
+                                FilteringTextInputFormatter.allow(RegExp(r'[0-9:]')), 
                               ],
                               showIncrementDecrement: false,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter a value';
                                 }
-                                // Check if the value matches the HH:MM format
                                 final timeRegExp = RegExp(r'^([01]\d|2[0-3]):([0-5]\d)$');
                                 if (!timeRegExp.hasMatch(value)) {
                                   return 'Invalid format. Enter time in HH:MM format';
                                 }
-
-                                // Parse hours and minutes
                                 final parts = value.split(':');
                                 final hours = int.tryParse(parts[0]);
                                 final minutes = int.tryParse(parts[1]);
-
                                 if (hours == null || minutes == null || hours < 0 || hours > 23 || minutes < 0 || minutes > 59) {
                                   return 'Invalid time. Ensure hours are between 00-23 and minutes are between 00-59';
                                 }
@@ -2286,7 +2165,6 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                         ),
                       ),
                       SizedBox(height: 20),
-                      //waste reduction
                       Text(
                         'Waste Reduction :',
                         style: AppFonts.text16Bold(AppColor.white),
@@ -2318,7 +2196,7 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                             CustomTextFieldNew(
                               controller: _plannedWasteReductionTargetController,
                               hintText: 'Enter your value',
-                              prefixIcon: Icons.tab, // Changed to target icon
+                              prefixIcon: Icons.tab, 
                               isValid: true,
                               suffixText: '',
                               onChanged: (value) {
@@ -2328,19 +2206,18 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                               },
                               keyboardType: TextInputType.numberWithOptions(decimal: true),
                               inputFormatters: [
-                                // Only allows numbers and a single decimal point
                                 FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}'))
                               ],
                               showIncrementDecrement: true,
                               onIncrement: () {
                                 final currentValue = double.tryParse(_plannedWasteReductionTargetController.text) ?? 0.0;
-                                _plannedWasteReductionTargetController.text = (currentValue + 1).toStringAsFixed(2); // Keeps two decimal places
+                                _plannedWasteReductionTargetController.text = (currentValue + 1).toStringAsFixed(2); 
                                 _updatePlannedWasteReduction();
                               },
                               onDecrement: () {
                                 final currentValue = double.tryParse(_plannedWasteReductionTargetController.text) ?? 0.0;
                                 if (currentValue > 0) {
-                                  _plannedWasteReductionTargetController.text = (currentValue - 1).toStringAsFixed(2); // Keeps two decimal places
+                                  _plannedWasteReductionTargetController.text = (currentValue - 1).toStringAsFixed(2); 
                                   _updatePlannedWasteReduction();
                                 }
                               },
@@ -2364,7 +2241,7 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                             CustomTextFieldNew(
                               controller: _plannedTotalProductionController,
                               hintText: 'Enter total production value',
-                              prefixIcon: Icons.assessment, // Changed to assessment icon
+                              prefixIcon: Icons.assessment, 
                               isValid: true,
                               suffixText: '',
                               onChanged: (value) {
@@ -2374,7 +2251,7 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                               },
                               keyboardType: TextInputType.numberWithOptions(decimal: true),
                               inputFormatters: [
-                                FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*$')), // Allows digits and optional decimal point
+                                FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*$')), 
                               ],
                               showIncrementDecrement: false,
                               validator: (value) {
@@ -2397,7 +2274,7 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                             CustomTextFieldNew(
                               controller: _plannedWasteReductionController,
                               hintText: 'Total Waste Reduction',
-                              prefixIcon: Icons.pie_chart, // Changed to pie chart icon
+                              prefixIcon: Icons.pie_chart,
                               isValid: true,
                               suffixText: '',
                               readOnly: true,
@@ -2412,7 +2289,6 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                         ),
                       ),
                       SizedBox(height: 20),
-                      //manufacturing efficiency
                       Text(
                         ' Manufacturing Efficiency :',
                         style: AppFonts.text16Bold(AppColor.white),
@@ -2444,7 +2320,7 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                             CustomTextFieldNew(
                               controller: _plannedTotalOutputController,
                               hintText: 'Enter your total output',
-                              prefixIcon: Icons.output, // Changed to output icon
+                              prefixIcon: Icons.output,
                               isValid: true,
                               suffixText: 'units',
                               onChanged: (value) {
@@ -2454,19 +2330,18 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                               },
                               keyboardType: TextInputType.numberWithOptions(decimal: true),
                               inputFormatters: [
-                                // Only allows numbers and a single decimal point
                                 FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}'))
                               ],
                               showIncrementDecrement: true,
                               onIncrement: () {
                                 final currentValue = double.tryParse(_plannedTotalOutputController.text) ?? 0.0;
-                                _plannedTotalOutputController.text = (currentValue + 1).toStringAsFixed(2); // Keeps two decimal places
+                                _plannedTotalOutputController.text = (currentValue + 1).toStringAsFixed(2);
                                 _updatePlannedManufacturingEfficiency();
                               },
                               onDecrement: () {
                                 final currentValue = double.tryParse(_plannedTotalOutputController.text) ?? 0.0;
                                 if (currentValue > 0) {
-                                  _plannedTotalOutputController.text = (currentValue - 1).toStringAsFixed(2); // Keeps two decimal places
+                                  _plannedTotalOutputController.text = (currentValue - 1).toStringAsFixed(2); 
                                   _updatePlannedManufacturingEfficiency();
                                 }
                               },
@@ -2490,7 +2365,7 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                             CustomTextFieldNew(
                               controller: _plannedTotalInputController,
                               hintText: 'Enter your total input',
-                              prefixIcon: Icons.input, // Changed to input icon
+                              prefixIcon: Icons.input,
                               isValid: true,
                               suffixText: 'RM',
                               onChanged: (value) {
@@ -2500,19 +2375,18 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                               },
                               keyboardType: TextInputType.numberWithOptions(decimal: true),
                               inputFormatters: [
-                                // Only allows numbers and a single decimal point
                                 FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}'))
                               ],
                               showIncrementDecrement: true,
                               onIncrement: () {
                                 final currentValue = double.tryParse(_plannedTotalInputController.text) ?? 0.0;
-                                _plannedTotalInputController.text = (currentValue + 1).toStringAsFixed(2); // Keeps two decimal places
+                                _plannedTotalInputController.text = (currentValue + 1).toStringAsFixed(2); 
                                 _updatePlannedManufacturingEfficiency();
                               },
                               onDecrement: () {
                                 final currentValue = double.tryParse(_plannedTotalInputController.text) ?? 0.0;
                                 if (currentValue > 0) {
-                                  _plannedTotalInputController.text = (currentValue - 1).toStringAsFixed(2); // Keeps two decimal places
+                                  _plannedTotalInputController.text = (currentValue - 1).toStringAsFixed(2);
                                   _updatePlannedManufacturingEfficiency();
                                 }
                               },
@@ -2536,7 +2410,7 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                             CustomTextFieldNew(
                               controller: _plannedManufacturingEfficiencyController,
                               hintText: 'Total Manufacturing Efficiency',
-                              prefixIcon: Icons.pie_chart, // Changed to pie chart icon
+                              prefixIcon: Icons.pie_chart, 
                               isValid: true,
                               suffixText: '',
                               readOnly: true,
@@ -2551,7 +2425,6 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                         ),
                       ),
                       SizedBox(height: 20),
-                      //Cycle time reduction
                       Text(
                         'Cycle Time Reduction :',
                         style: AppFonts.text16Bold(AppColor.white),
@@ -2605,7 +2478,7 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                               inputFormatters: [
                                 FilteringTextInputFormatter.allow(
                                     RegExp(_selectedFormat == 'Days' ? r'[0-9]' : r'[0-9]')
-                                ), // Allow only digits
+                                ), 
                               ],
                               showIncrementDecrement: false,
                               validator: (value) {
@@ -2669,7 +2542,7 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                               inputFormatters: [
                                 FilteringTextInputFormatter.allow(
                                     RegExp(_selectedFormat == 'Days' ? r'[0-9]' : r'[0-9]')
-                                ), // Allow only digits
+                                ), 
                               ],
                               showIncrementDecrement: false,
                               validator: (value) {
@@ -2711,7 +2584,7 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                             CustomTextFieldNew(
                               controller: _plannedCycleTimeReductionController,
                               hintText: 'Total Cycle Time Reduction',
-                              prefixIcon: Icons.timeline, // Changed to pie chart icon
+                              prefixIcon: Icons.timeline, 
                               isValid: true,
                               suffixText: '',
                               readOnly: true,
@@ -2726,7 +2599,6 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                         ),
                       ),
                       SizedBox(height: 20),
-                      //milestones achievement
                       Text(
                         'Milestones Achievement :',
                         style: AppFonts.text16Bold(AppColor.white),
@@ -2779,7 +2651,6 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                         ),
                       ),
                       SizedBox(height: 20),
-                      //supplier and vendor efficiency
                       Text(
                         'Supplier Efficiency :',
                         style: AppFonts.text16Bold(AppColor.white),
@@ -2803,7 +2674,6 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // Planned Delivery Time
                             Text(
                               ' Delivery Time:',
                               style: AppFonts.text16Bold(AppColor.deepGreen1),
@@ -2834,7 +2704,7 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                               inputFormatters: [
                                 FilteringTextInputFormatter.allow(
                                     RegExp(_selectedFormat == 'Days' ? r'[0-9]' : r'[0-9]')),
-                              ], // Allow only digits
+                              ], 
                               showIncrementDecrement: false,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
@@ -2867,7 +2737,6 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                               },
                             ),
                             SizedBox(height: 20),
-                            // Planned Budget Costs
                             Text(
                               ' Budget Costs:',
                               style: AppFonts.text16Bold(AppColor.deepGreen1),
@@ -3061,7 +2930,6 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                               },
                             ),
                             SizedBox(height: 20),
-                            // Planned Target Quality Standard
                             Text(
                               ' Target Quality Standard:',
                               style: AppFonts.text16Bold(AppColor.deepGreen1),
@@ -3083,7 +2951,6 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                               },
                             ),
                             SizedBox(height: 20),
-                            // Planned Accuracy of Orders Placed
                             Text(
                               ' Accuracy of Orders Placed:',
                               style: AppFonts.text16Bold(AppColor.deepGreen1),
@@ -3105,7 +2972,6 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                               },
                             ),
                             SizedBox(height: 20),
-                            // Planned Lead Time
                             Text(
                               ' Lead Time:',
                               style: AppFonts.text16Bold(AppColor.deepGreen1),
@@ -3127,7 +2993,6 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                               },
                             ),
                             SizedBox(height: 20),
-                            // Planned Flexibility
                             Text(
                               ' Flexibility:',
                               style: AppFonts.text16Bold(AppColor.deepGreen1),
@@ -3149,7 +3014,6 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                               },
                             ),
                             SizedBox(height: 20),
-                            // Planned Communication Efficiency
                             Text(
                               ' Communication Efficiency:',
                               style: AppFonts.text16Bold(AppColor.deepGreen1),
@@ -3171,7 +3035,6 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                               },
                             ),
                             SizedBox(height: 20),
-                            // Planned Reliability
                             Text(
                               ' Reliability:',
                               style: AppFonts.text16Bold(AppColor.deepGreen1),
@@ -3201,7 +3064,7 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
                             CustomTextFieldNew(
                               controller: _plannedSupplierEfficiencyController,
                               hintText: 'Total Supplier Efficiency',
-                              prefixIcon: Icons.support, // Changed to pie chart icon
+                              prefixIcon: Icons.support, 
                               isValid: true,
                               suffixText: '',
                               readOnly: true,
@@ -3275,15 +3138,15 @@ class _EfficiencyFactors1PageState extends State<EfficiencyFactors1Page> with Si
 
         if (end.isAfter(start)) {
           final duration = end.difference(start).inDays;
-          _plannedDurationController.text = duration.toString(); // Change to weeks if needed
+          _plannedDurationController.text = duration.toString();
         } else {
-          _plannedDurationController.text = '0'; // Or any other default value
+          _plannedDurationController.text = '0';
         }
       } catch (e) {
-        _plannedDurationController.text = '0'; // Or any other default value
+        _plannedDurationController.text = '0'; 
       }
     } else {
-      _plannedDurationController.text = '0'; // Default value if dates are not set
+      _plannedDurationController.text = '0'; 
     }
   }
 
