@@ -45,7 +45,6 @@ class _ProcessPageState extends State<ProcessPage> {
               .map((doc) {
             final data = doc.data() as Map<String, dynamic>;
 
-            // Convert Timestamp to DateTime if needed
             if (data['launchDate'] is Timestamp) {
               data['launchDate'] = (data['launchDate'] as Timestamp).toDate();
             }
@@ -58,7 +57,6 @@ class _ProcessPageState extends State<ProcessPage> {
             'products': products,
           };
 
-          // Check if any project has a description
           if (projectData['description'] != null && projectData['description']!.isNotEmpty) {
             hasDescription = true;
           }
@@ -96,7 +94,7 @@ class _ProcessPageState extends State<ProcessPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 40), // Adjusted space before the table
+              SizedBox(height: 40), 
               Text(
                 'Selected Projects:',
                 style: TextStyle(
@@ -123,7 +121,7 @@ class _ProcessPageState extends State<ProcessPage> {
                     scrollDirection: Axis.horizontal,
                     child: Container(
                       constraints: BoxConstraints(
-                        minWidth: 800, // Adjust this value as needed
+                        minWidth: 800, 
                       ),
                       child: DataTable(
                         columns: [
@@ -179,18 +177,18 @@ class _ProcessPageState extends State<ProcessPage> {
                             DataCell(Text(productCount.toString(), style: TextStyle(color: Colors.black.withOpacity(0.8)))),
                           ]);
                         }).toList(),
-                        headingRowColor: MaterialStateColor.resolveWith((states) => AppColor.color4), // Heading row color
-                        dataRowColor: MaterialStateColor.resolveWith((states) => AppColor.color5), // Data row color
+                        headingRowColor: MaterialStateColor.resolveWith((states) => AppColor.color4), 
+                        dataRowColor: MaterialStateColor.resolveWith((states) => AppColor.color5), 
                         dividerThickness: 2,
                         showBottomBorder: true,
                         columnSpacing: 30,
-                        border: TableBorder.all(color: AppColor.color3), // Border color
+                        border: TableBorder.all(color: AppColor.color3), 
                       ),
                     ),
                   ),
                 ),
               ),
-              Spacer(), // Pushes the buttons to the bottom of the column
+              Spacer(),
               Align(
                 alignment: Alignment.bottomRight,
                 child: Row(
@@ -198,11 +196,11 @@ class _ProcessPageState extends State<ProcessPage> {
                   children: [
                     ElevatedButton.icon(
                       onPressed: () {
-                        Navigator.of(context).pop(); // Close the page
+                        Navigator.of(context).pop(); 
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.red, // Background color for close button
-                        foregroundColor: Colors.white, // Text color
+                        backgroundColor: Colors.red, 
+                        foregroundColor: Colors.white,
                         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                         elevation: 5,
                       ),
@@ -212,13 +210,11 @@ class _ProcessPageState extends State<ProcessPage> {
                     SizedBox(width: 10),
                     ElevatedButton.icon(
                       onPressed: () {
-                        // Add your processing logic here
                         print('Processing projects: ${widget.selectedProjects.join(", ")}');
-                        // You could navigate to another page, show a success message, etc.
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green, // Background color
-                        foregroundColor: Colors.white, // Text color
+                        backgroundColor: Colors.green,
+                        foregroundColor: Colors.white, 
                         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                         elevation: 5,
                       ),
