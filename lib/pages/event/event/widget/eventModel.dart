@@ -5,8 +5,8 @@ class EventModel {
   final String eventName;
   final String organizer;
   final String description;
-  final Timestamp eventDate; // Firestore Timestamp
-  final Timestamp timestamp; // Firestore Timestamp
+  final Timestamp eventDate; 
+  final Timestamp timestamp; 
 
   EventModel({
     required this.eventId,
@@ -17,7 +17,6 @@ class EventModel {
     required this.timestamp,
   });
 
-  // Create an instance from Firestore document
   factory EventModel.fromDocument(DocumentSnapshot<Map<String, dynamic>> doc) {
     var data = doc.data()!;
     return EventModel(
@@ -30,7 +29,6 @@ class EventModel {
     );
   }
 
-  // Create an instance from JSON map
   factory EventModel.fromJson(Map<String, dynamic> json) {
     return EventModel(
       eventId: json['eventId'] as String,
@@ -46,31 +44,28 @@ class EventModel {
     );
   }
 
-  // Convert to JSON map
   Map<String, dynamic> toJson() {
     return {
       'eventId': eventId,
       'eventName': eventName,
       'organizer': organizer,
       'description': description,
-      'eventDate': eventDate, // Firestore Timestamp
-      'timestamp': timestamp, // Firestore Timestamp
+      'eventDate': eventDate, 
+      'timestamp': timestamp, 
     };
   }
 
-  // Convert to Map<String, dynamic> for passing to other widgets
   Map<String, dynamic> toMap() {
     return {
       'eventId': eventId,
       'eventName': eventName,
       'organizer': organizer,
       'description': description,
-      'eventDate': eventDate, // Firestore Timestamp
-      'timestamp': timestamp, // Firestore Timestamp
+      'eventDate': eventDate, 
+      'timestamp': timestamp, 
     };
   }
 
-  // Utility method to get DateTime from Firestore Timestamp
   DateTime getEventDate() {
     return eventDate.toDate();
   }
