@@ -435,7 +435,7 @@ class _EfficiencyFactorsPageState extends State<EfficiencyFactorsPage> with Sing
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(message),
-        backgroundColor: Colors.green, // You can choose any color you like
+        backgroundColor: Colors.green, 
       ),
     );
   }
@@ -444,7 +444,7 @@ class _EfficiencyFactorsPageState extends State<EfficiencyFactorsPage> with Sing
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(message),
-        backgroundColor: Colors.red, // You can choose any color you like
+        backgroundColor: Colors.red, 
       ),
     );
   }
