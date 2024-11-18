@@ -16,9 +16,7 @@ class ShareholderList extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () async {
-        // Fetch the event associated with this shareholder
         if (shareholder.eventName != null) {
-          // Fetch the document as a DocumentSnapshot<Map<String, dynamic>>
           DocumentSnapshot<Map<String, dynamic>> eventDoc =
               await FirebaseFirestore.instance
                   .collection('events')
@@ -26,17 +24,13 @@ class ShareholderList extends StatelessWidget {
                   .get();
 
           if (eventDoc.exists) {
-            // Pass the document to the EventModel
             EventModel event = EventModel.fromDocument(eventDoc);
-
-            // Navigate to the EventPage with the event details
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (_) => EventPage(event: event),
               ),
             );
           } else {
-            // Handle the case where the event document doesn't exist
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text('Event not found for this shareholder'),
@@ -44,7 +38,6 @@ class ShareholderList extends StatelessWidget {
             );
           }
         } else {
-          // Handle the case where no event is associated with the shareholder
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text('No event associated with this shareholder'),
