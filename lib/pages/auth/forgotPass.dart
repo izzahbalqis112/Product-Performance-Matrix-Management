@@ -20,20 +20,17 @@ class _ForgotPasswordState extends State<ForgotPassword> with TickerProviderStat
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   bool _validateEmail(String email) {
-    // Regular expressions for the accepted email formats
     final RegExp googleEmail = RegExp(r'^[\w.+-]+@gmail\.com$', caseSensitive: false);
     final RegExp utemEmail = RegExp(r'^[\w.+-]+@(utem\.edu\.my|student\.utem\.edu\.my)$', caseSensitive: false);
     final RegExp outlookEmail = RegExp(r'^[\w.+-]+@outlook\.com$', caseSensitive: false);
     final RegExp yahooEmail = RegExp(r'^[\w.+-]+@yahoo\.com$', caseSensitive: false);
-
-    // Check if the email matches any of the accepted formats
     if (googleEmail.hasMatch(email) ||
         utemEmail.hasMatch(email) ||
         outlookEmail.hasMatch(email) ||
         yahooEmail.hasMatch(email)) {
-      return true; // Email is valid
+      return true; 
     } else {
-      return false; // Email is invalid
+      return false;
     }
   }
 
@@ -107,7 +104,7 @@ class _ForgotPasswordState extends State<ForgotPassword> with TickerProviderStat
                       width: 60,
                       height: 60,
                     ),
-                    const SizedBox(width: 16), // Add some space to the right of the logo
+                    const SizedBox(width: 16),
                   ],
                 ),
               ),
@@ -193,26 +190,25 @@ class _ForgotPasswordState extends State<ForgotPassword> with TickerProviderStat
                                   Column(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
-                                      const SizedBox(height: 22), // Ad
+                                      const SizedBox(height: 22), 
                                       ElevatedButton(
                                         onPressed: resetPassword,
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor: AppColor.green,
-                                          padding: EdgeInsets.symmetric(vertical: 16, horizontal: 74), // Adjust padding for size
+                                          padding: EdgeInsets.symmetric(vertical: 16, horizontal: 74),
                                           shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(44), // Adjust border radius
-                                            side: BorderSide(color: AppColor.green, width: 2), // Border color and width
+                                            borderRadius: BorderRadius.circular(44),
+                                            side: BorderSide(color: AppColor.green, width: 2), 
                                           ),
-                                          elevation: 5, //shadow
+                                          elevation: 5,
                                         ),
                                         child: Text(
                                           "Reset Password",
-                                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.white), // Text style
+                                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.white),
                                         ),
                                       ),
                                     ],
                                   ),
-
                                 ],
                               ),
                             ),
