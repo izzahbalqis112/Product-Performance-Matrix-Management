@@ -87,7 +87,6 @@ class _ResultProcessPageState extends State<ResultProcessPage> {
     String suggestion;
 
     if (actualEfficiency > plannedEfficiency) {
-      // Actual efficiency is higher than planned
       if (actualEfficiency - plannedEfficiency >= 0.1 * plannedEfficiency) {
         result = "SUCCESSFUL";
         suggestion = "Keep up the good work! Consider analyzing what strategies contributed to this success and replicate them in other areas.";
@@ -96,7 +95,6 @@ class _ResultProcessPageState extends State<ResultProcessPage> {
         suggestion = "While the efficiency is better than planned, there is still room for improvement. Investigate areas where efficiency can be further enhanced.";
       }
     } else if (actualEfficiency < plannedEfficiency) {
-      // Actual efficiency is lower than planned
       if (plannedEfficiency - actualEfficiency >= 0.1 * plannedEfficiency) {
         result = "FAILED";
         suggestion = "The actual efficiency is significantly lower than planned. Analyze the reasons for the shortfall and address the underlying issues to improve future performance.";
@@ -105,7 +103,6 @@ class _ResultProcessPageState extends State<ResultProcessPage> {
         suggestion = "The efficiency is lower than planned, but not drastically. Review processes and identify specific areas for improvement to achieve planned targets.";
       }
     } else {
-      // Actual efficiency is the same as planned
       result = "NO IMPROVEMENT";
       suggestion = "Efficiency is on par with the plan. Consider setting more ambitious targets and explore opportunities for optimization.";
     }
@@ -116,15 +113,15 @@ class _ResultProcessPageState extends State<ResultProcessPage> {
   Color _getResultColor(String result) {
     switch (result) {
       case "SUCCESSFUL":
-        return Colors.green; // Green for success
+        return Colors.green; 
       case "FAILED":
-        return Colors.red; // Red for failure
+        return Colors.red; 
       case "PARTIALLY SUCCESSFUL":
-        return Colors.orange; // Optional: Different color for partially successful
+        return Colors.orange;
       case "NO IMPROVEMENT":
-        return Colors.yellow; // Optional: Color for no improvement
+        return Colors.yellow;
       default:
-        return Colors.grey; // Default color
+        return Colors.grey;
     }
   }
 
@@ -206,7 +203,7 @@ class _ResultProcessPageState extends State<ResultProcessPage> {
         children: [
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0), // Add horizontal padding here
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -232,13 +229,13 @@ class _ResultProcessPageState extends State<ResultProcessPage> {
                         ],
                       ),
                       child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal, // Enable horizontal scrolling
+                        scrollDirection: Axis.horizontal,
                         child: ConstrainedBox(
                           constraints: BoxConstraints(
-                            minWidth: MediaQuery.of(context).size.width, // Ensure the content takes full width
+                            minWidth: MediaQuery.of(context).size.width, 
                           ),
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start, // Align items to start
+                            crossAxisAlignment: CrossAxisAlignment.start, 
                             children: [
                               // DEV LEAD TIME Row
                               _buildRow('DEVELOPMENT LEAD TIME :', _resultEfficiencyData),
@@ -299,13 +296,13 @@ class _ResultProcessPageState extends State<ResultProcessPage> {
                         ],
                       ),
                       child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal, // Enable horizontal scrolling
+                        scrollDirection: Axis.horizontal, 
                         child: ConstrainedBox(
                           constraints: BoxConstraints(
-                            minWidth: MediaQuery.of(context).size.width, // Ensure the content takes full width
+                            minWidth: MediaQuery.of(context).size.width, 
                           ),
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start, // Align items to start
+                            crossAxisAlignment: CrossAxisAlignment.start, 
                             children: [
                               _buildRow('UNIT SALES :', _resultEfficiencyData),
                               _buildRow('MARKET SHARE :', _resultEfficiencyData),
@@ -355,7 +352,7 @@ class _ResultProcessPageState extends State<ResultProcessPage> {
                 padding: const EdgeInsets.all(16.0),
                 child: _buildRow1(
                   'OVERALL RESULT :',
-                  _overallResultData, // Pass the result data here
+                  _overallResultData, 
                 ),
               ),
             ),
@@ -374,11 +371,11 @@ class _ResultProcessPageState extends State<ResultProcessPage> {
             label,
             style: AppFonts.text16Bold(AppColor.deepGreen1),
           ),
-          SizedBox(height: 8), // Add space between label and result
+          SizedBox(height: 8), 
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
             decoration: BoxDecoration(
-              color: _getResultColor(_getResultFromString(resultData)), // Color based on result
+              color: _getResultColor(_getResultFromString(resultData)), 
               borderRadius: BorderRadius.circular(8.0),
             ),
             child: Text(
