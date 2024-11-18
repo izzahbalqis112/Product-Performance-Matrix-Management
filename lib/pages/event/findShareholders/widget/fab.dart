@@ -15,7 +15,6 @@ class SpeedDialButton extends StatelessWidget {
       MaterialPageRoute(
         builder: (context) => AddShareholderDetails(
           onDataSubmitted: () {
-            // Handle any actions when data is submitted
             Navigator.pop(context);
           },
         ),
