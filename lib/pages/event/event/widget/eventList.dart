@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:tf_pdpppms/common/appColors.dart';
-
 import '../eventPage.dart';
 import 'eventAll.dart';
 import 'eventModel.dart';
@@ -56,14 +55,14 @@ class _EventListState extends State<EventList> {
     final displayedEvents = events.take(3).toList();
 
     return SizedBox(
-      height: 400, // Adjust the height as needed
+      height: 400, 
       child: GridView.builder(
-        scrollDirection: Axis.horizontal, // Enable horizontal scrolling
+        scrollDirection: Axis.horizontal,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, // Two containers horizontally
+          crossAxisCount: 2,
           mainAxisSpacing: 16.0,
           crossAxisSpacing: 16.0,
-          childAspectRatio: 2 / 3, // Adjust aspect ratio as needed
+          childAspectRatio: 2 / 3, 
         ),
         itemCount: showMore ? displayedEvents.length + 1 : displayedEvents.length,
         itemBuilder: (context, index) {
