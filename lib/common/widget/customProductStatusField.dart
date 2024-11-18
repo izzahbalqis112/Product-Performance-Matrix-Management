@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:tf_pdpppms/common/appColors.dart';
 import '../appFonts.dart';
 
-// Define the enum for product statuses
 enum ProductStatus {
   development,
   testing,
@@ -16,7 +15,6 @@ enum ProductStatus {
   obsolete,
 }
 
-// Extension to get a string representation of the enum values
 extension ProductStatusExtension on ProductStatus {
   String get name {
     switch (this) {
@@ -75,7 +73,7 @@ class _CustomProductStatusFieldState extends State<CustomProductStatusField> {
     super.initState();
     _selectedStatus = ProductStatus.values.firstWhere(
           (status) => status.name == widget.controller.text,
-      orElse: () => ProductStatus.development, // Use a valid default value
+      orElse: () => ProductStatus.development,
     );
   }
 
@@ -116,7 +114,6 @@ class _CustomProductStatusFieldState extends State<CustomProductStatusField> {
                 widget.onChanged!(newValue?.name ?? '');
               }
 
-              // Perform validation here and set error state if necessary
               final validationResult = widget.validator?.call(newValue);
               _errorText = validationResult;
             });
